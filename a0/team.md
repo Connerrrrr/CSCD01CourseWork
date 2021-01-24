@@ -29,3 +29,10 @@ Yong Tian Chen
 | utorid | chenyo17 |
 | student number | 1001481372 |
 | email | yongtian.chen@mail.utoronto.ca |
+
+Jingwei Wang
+| | |
+| ------ | ----------- |
+| utorid | wangj589 |
+| student number | 1003777754 |
+| email | jingwei.wang@mail.utoronto.ca |
