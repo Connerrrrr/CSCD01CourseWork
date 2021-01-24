@@ -15,3 +15,10 @@ Jingwei Wang
 | utorid | wangj589 |
 | student number | 1003777754 |
 | email | jingwei.wang@mail.utoronto.ca |
+
+Guikang Zhong
+| | |
+| ------ | ----------- |
+| utorid | zhonggui |
+| student number | 1004304807 |
+| email | guikang.zhong@mail.utoronto.ca |
