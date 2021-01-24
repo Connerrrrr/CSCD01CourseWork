@@ -13,5 +13,5 @@ Jingwei Wang
 | | |
 | ------ | ----------- |
 | utorid | wangj589 |
-| student number | 100377754 |
+| student number | 1003777754 |
 | email | jingwei.wang@mail.utoronto.ca |
