@@ -153,6 +153,10 @@ The **_utils_** package includes various utilities, where **_Buch_** is a subcla
 
 ### Strategy Pattern
 
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Strategy_UML.svg "UML Diagram of Strategy")
+
+--------
+
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Strategy_Sequence_Diagram.svg "Sequence Diagram of Strategy")
 
 The strategy pattern enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use. Since scikit-learn is a python machine learning library, which has a lot of different models with the same function signature, and the algorithms in those functions are different as well, therefore there are numerous cases where scikit-learn uses the strategy pattern. Like the image shown above, Class “LinearModel” is an abstract base class with an abstract method fit(). All its child classes has different implementations of fit().
