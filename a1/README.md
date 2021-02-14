@@ -6,39 +6,120 @@
 
 All modules in sklearn can be categorized as above. Users will first use some modules to analyze the input data sets and then do a preprocessing to encode, formalize and simplify input data sets. Then users will do some feature engineering to extract and select some useful features. Most importantly, sklearn provides various kinds of machine learning models over all three types of learnings (supervised, semi-supervised and unsupervised). It also provides some model selection modules to select a good model for classification or regression. Finally, users are able to review the selected models and then make a choice to reselect another model or output the result. Throughout the whole process, some other modules like base, utils, expectations and some external libraries such as numpy, scipy and cython are also frequently used.
 
+--------
+
 ### Analysis
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Analysis.svg "Analysis")
+
+Scikit learn provides a few packages to perform data analysis such as covariance estimation, signals decomposition in components, cross decomposition, and imputation of missing values.
+
+Because many statistical problems require the estimation of a population’s covariance matrix, and there are variants of covariance. The sklearn.covariance package provides a few types of covariance classes like Empirical Covariance, Shrunk Covariance, Sparse Inverse Covariance, and Robust Covariance. They have an inheritance relationship shown in the image above as using inheritance allows different covariance classes to share common attributes and methods.
+
+In the real world, many datasets contain missing values, and those missing values may be valuable even so. In view of this problem, scikit learn comes up with a way to infer the missing values which is imputer. There are three imputers, Simple Imputer, Iterative Imputer, KNN Imputer. The imputers transform the datasets into being incompatible with scikit-learn estimators.
+
+When it comes to a problem where a matrix contains too many zeros, scikit learn provides the decomposition package to reduce a matrix into constituent parts that make it easier to calculate more complex matrix operations. Same as covariance, there are a variety of decompositions like dictionary learning, PCA, ICA, etc. Some python classes can be categorized into these definitions. Cross decomposition is similar to decomposition in general.
+
+--------
 
 ### Preprocessing
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Preprocessing.svg "Preprocessing")
 
+--------
+
 ### Feaure Engineering
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/FeatureEngineering.svg "Feature Engineering")
 
+The **_feature extraction_** module can be used to extract features in a format supported by machine learning algorithms from datasets consisting of formats such as text and image. Where **_PatchExtractor_** can extract patches from a collection of images, **_Vectorizers_** and the **_Transformer_** are used to transform list of feature-values into vectors and **_FeatureHasher_** will turn sequences of feature names into matrices.
+
+The **_feature selection_** module can be used for feature selection/dimensionality reduction on sample sets, either to improve estimators’ accuracy scores or to boost their performance on very high-dimensional datasets. Note that **_RFE_** and **_RFECV_** are for ranking features while other classes are for selecting features.
+
+--------
+
 ### Modeling
+
+The modeling module is the place to train the dataset, which is the most exciting part in machine learning, and consists of two main sections, i.e. supervised models and unsupervised & semi-supervised models. They both inherit from **_BaseEstimator_** class and include various **_Mixins_**, which can be viewed as interfaces with implemented methods. The Mixin pattern is an example of enforcing the **_dependency inversion principle_**, achieving the **_low coupling_**.
 
 #### Supervised Models
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/SupervisedModel.svg "Supervised Learning Models")
 
+Supervised models are the most common sub-branch of machine learning models today. They are designed to learn by labeled examples. The notion of “supervised” is from the idea that training the model is like having a teacher supervise the whole process. The major packages and classes that are commonly used are identified below:
+
+1. naive_bayes
+
+    * GaussianNB(Gaussian Naive Bayes)
+2. svm
+    * SVC(Support Vector Machine Classifier)
+3. neural_network
+    * MLPClassifier(Multilayer Perceptron Classifier)
+4. linear_model
+    * LogisticRegression
+    * SGD(Stochastic Gradient Descent)
+    * Perceptron
+5. tree
+    * DecisionTree
+6. ensemble
+    * Voting
+    * RandomForest
+    * Stacking
+    * AdaBoost
+    * GradientBoosting
+
 #### Semi-supervised & Unsupervised Models
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Unsupervised%26Semi-supervised%20Model.svg "Unsupervised and Semi-supervised learning Models")
+
+In contrast to supervised models, datasets for unsupervised models do not contain labels, leaving models to identify the pattern on their own. Unsupervised models are able to learn on their own based on their algorithms, without being explicitly informed if what they are doing is correct. Meanwhile, indicated by its name, semi-supervised models lie between supervised and unsupervised models. Many machine learning researchers have found that using unlabeled data in combination with small amounts of labeled data can significantly improve learning accuracy.
+
+1. neighbors
+    * KNN(K-Nearest Neighbors)
+2. neural_network
+    * RBM(Restricted Boltzmann Machine)
+3. cluster
+    * KMeans
+4. mixture
+    * GaussianMixture
+
+--------
 
 ### Model Selection
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/model_selection.svg "Model Selection")
 
+For model selection, it focuses on two main purposes: evaluating estimator performance and tuning the hyper-parameters. This section also provided a learning curve for the validation and training score for the estimator.
+
+First, in order to evaluate estimators, scikit-learn uses cross validation to approach this goal. It split the dataset into two parts, training set and test data. The class under **_BaseShuffleSplit_** are all different types of splits for different situations. The main function _train\_test\_split_ that was implemented inside **_ShuffleSplit_** can only perform strastratified splitting. That is why scikit-learn implemented a **_GroupShuffleSplit_** class to do the group split. The other main class would be KFold, which is also a classic cross validation technique.
+
+Secondly would be tuning the hyper-parameters, which is also known as the parameters that is not learnt within estimators. In scikit-learn, it uses **_GridSearchCV_** for all combinations, and **_RandomizedSearchCV_** can sample a given value with a specific distribution. Both of the classes can cooperate with **_HalvingGridSearchCV_** and perform much faster at finding the combination.
+
+--------
+
 ### Model Review
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/ModelReview.svg "Model Review")
 
+Model Review’s main function would be to evaluate different estimator’s performance and give them a score. can be separated into two part metrics package and inspection package, where metrics folder, it records the score and uses the metrics function to predict possible error outcome. For the inspection package, it contains two main functions, this package did not contain any classes, however, these two functions are very important for model review.
+
+First, the metrics package, it uses different metrics functions to plot graphs for the scores of the estimator.  The **_accuracy\_score_** function will compute the accuracy of either the fraction or predictions. The **_top\_k\_accuracy\_score_** function would be the generalization version of **_accuracy\_score_**. **_ConfusionMatrixDisplay_** class would evaluate classification accuracy of confusion matrix and **_plot\_confusion_matrix_** in this class would plot the confusion matrix visually.
+
+Second the inspection package, it did not contain any classes but rather two useful functions for model review. The first one is **_partial\_dependence_**, which is a tool to dependence of features that belongs to the average estimator, the second one is **_permutation\_importance_** which would calculate the difference between baseline metric and metric that was created from permuting the feature column.
+
+--------
+
 ### Others
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Others.svg "Others")
+
+Modules in this section including the three external libraries numpy, cython and scipy are commonly used everywhere in sklearn.
+
+There is a base.py file in the home directory of sklearn package, it defines various **_Mixin_** classes that are used as base classes for this project.
+
+The **_compose_** module contains meta-estimators for building composite models with transformers.
+
+The **_utils_** package includes various utilities, where **_Buch_** is a subclass of python dictionary that exposing keys as attributes, **_MissingValues_** is a data class for missing data information, **_deprecated_** is a decorator to mark a function or class as deprecated and **_loguniform_** is class supporting log-uniform random variables which inherent from scipy.stats.reciprocal.
 
 ## Design Patterns
 
