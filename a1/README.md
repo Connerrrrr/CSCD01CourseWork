@@ -1,5 +1,21 @@
 # CSCD01W21 Assignment 1
 
+## Table of Content
+
+- [Overall Architecture](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#overall-architecture)
+    * [Analysis](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#analysis)
+    * [Preprocessing](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#preprocessing)
+    * [Feature Engineering](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#feaure-engineering)
+    * [Modeling](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#feaure-engineering)
+    * [Model Selection](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#model-selection)
+    * [Model Review](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#model-review)
+    * [Others](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#others)
+- [Design Patterns](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#design-patterns)
+    * [Strategy Pattern](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#strategy-pattern)
+    * [Dependency Injection Pattern](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#dependency-injection-pattern)
+    * [Iterator Pattern](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#appendix)
+- [Appendix](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#appendix)
+
 ## Overall Architecture
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/sklearnFlowchart.svg "Overall Flow Diagram")
@@ -49,7 +65,6 @@ The modeling module is the place to train the dataset, which is the most excitin
 Supervised models are the most common sub-branch of machine learning models today. They are designed to learn by labeled examples. The notion of “supervised” is from the idea that training the model is like having a teacher supervise the whole process. The major packages and classes that are commonly used are identified below:
 
 1. naive_bayes
-
     * GaussianNB(Gaussian Naive Bayes)
 2. svm
     * SVC(Support Vector Machine Classifier)
