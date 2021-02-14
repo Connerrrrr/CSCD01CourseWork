@@ -469,6 +469,10 @@ As we can see from the above code example,  we can see that both GridSearchCV, a
 
 ### Iterator Pattern
 
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Iterator_UML.svg "UML Diagram of Dependency Injection")
+
+--------
+
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Iterator_Sequence_Diagram.svg "Sequence Diagram of Iterator")
 
 Iterator is a behavioral design pattern that allows sequential traversal through a complex data structure without exposing its internal details. The containers must offer an *\_\_iter\_\_()* method that returns an iterator object. Supporting this method makes the containers **iterable**. Above are some examples of containers that are iterable from sklearn (BaseEnsemble, ParameterGrid, ParameterSampler).
