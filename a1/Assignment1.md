@@ -2,7 +2,7 @@
 
 ## Overall Architecture
 
-![alt text](Images\sklearnFlowchart.svg "Overall Flow Diagram")
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/sklearnFlowchart.svg "Overall Flow Diagram")
 
 All modules in sklearn can be categorized as above. Users will first use some modules to analyze the input data sets and then do a preprocessing to encode, formalize and simplify input data sets. Then users will do some feature engineering to extract and select some useful features. Most importantly, sklearn provides various kinds of machine learning models over all three types of learnings (supervised, semi-supervised and unsupervised). It also provides some model selection modules to select a good model for classification or regression. Finally, users are able to review the selected models and then make a choice to reselect another model or output the result. Throughout the whole process, some other modules like base, utils, expectations and some external libraries such as numpy, scipy and cython are also frequently used.
 
@@ -16,15 +16,15 @@ All modules in sklearn can be categorized as above. Users will first use some mo
 
 #### Supervised Models
 
-![alt text](Images\SupervisedModel.svg "Supervised Learning Models")
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/SupervisedModel.svg "Supervised Learning Models")
 
 #### Semi-supervised & Unsupervised Models
 
-![alt text](Images\Unsupervised&Semi_supervisedModel.svg "Unsupervised and Semi-supervised learning Models")
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Unsupervised%26Semi-supervised%20Model.svg "Unsupervised and Semi-supervised learning Models")
 
 ### Model Selection
 
-![alt text](Images\model_selection.svg "Model Selection")
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/model_selection.svg "Model Selection")
 
 ### Model Review
 
