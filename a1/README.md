@@ -46,6 +46,15 @@ When it comes to a problem where a matrix contains too many zeros, scikit learn 
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Preprocessing.svg "Preprocessing")
 
+The sklearn.preprocessing package includes scaling, centering, normalization, binarization methods to change the raw data into a suitable data representation for the downstream estimators. 
+
+The sklearn.random_projection.py provides two projections such as SparseRandomProjection, GaussianRandomProjection, which are child classes of BaseRandomProjection, to quickly process data into models.
+
+The sklearn.discriminant_analysis.py provides Linear and Quadratic Discriminant Analysis to 
+characterizes or separates objects.
+
+In general, the preprocessing package contains a lot of data processing classes and each class is highly decoupled. Since they are estimators, they inherited from BaseEstimator and some mixin classes to have special features.
+
 --------
 
 ### Feaure Engineering
