@@ -34,6 +34,8 @@ All modules in sklearn can be categorized as above. Users will first use some mo
 
 ### Model Review
 
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/ModelReview.svg "Model Review")
+
 ### Others
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Others.svg "Others")
