@@ -246,7 +246,7 @@ As you can see, both Class LinearRegression and BayesianRidge are the child clas
 
 ### Dependency Injection Pattern
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Dependency_Injection_Sequence_Diagram.svg "Sequence_Diagram of Dependency Injection")
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Dependency_Injection_Sequence_Diagram.svg "Sequence Diagram of Dependency Injection")
 
 Dependency injection plays a very important role when implementing IoC(Inversion of Control). The main purpose of dependency injection is to create the dependents objects outside the class and provide this object to a class through different ways. Dependency injection can broadly be separated into three different types, which are Constructor injection, Property Injection and Method Injection. Constructor injection will go through a constructor, Property injection will go through a property and method injection will go through a method. As our team read through the code of scikit-learn, we found out that there are lots of places that have been implemented using Dependency injection. Most of their codes are using Constructor injection.
 
@@ -365,7 +365,7 @@ As we can see from the above code example,  we can see that both GridSearchCV, a
 
 ### Iterator Pattern
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Iterator_Sequence_Diagram.svg "Sequence_Diagram of Iterator")
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Iterator_Sequence_Diagram.svg "Sequence Diagram of Iterator")
 
 Iterator is a behavioral design pattern that allows sequential traversal through a complex data structure without exposing its internal details. The containers must offer an *\_\_iter\_\_()* method that returns an iterator object. Supporting this method makes the containers **iterable**. Above are some examples of containers that are iterable from sklearn (BaseEnsemble, ParameterGrid, ParameterSampler).
 
