@@ -1,7 +1,7 @@
 # CSCD01W21 Assignment 1
 
 ## Table of Content
-
+- [Auto-generated UML](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#auto-generated-uml)
 - [Overall Architecture](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#overall-architecture)
     * [Analysis](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#analysis)
     * [Preprocessing](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#preprocessing)
@@ -15,6 +15,10 @@
     * [Dependency Injection Pattern](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#dependency-injection-pattern)
     * [Iterator Pattern](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#appendix)
 - [Appendix](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a1#appendix)
+
+## Auto-generated UML
+
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Auto_generated_UML.svg "Auto-generated UML")
 
 ## Overall Architecture
 
