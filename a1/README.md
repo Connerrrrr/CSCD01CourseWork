@@ -100,7 +100,7 @@ Supervised models are the most common sub-branch of machine learning models toda
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Unsupervised%26Semi-supervised%20Model.svg "Unsupervised and Semi-supervised learning Models")
 
-In contrast to supervised models, datasets for unsupervised models do not contain labels, leaving models to identify the pattern on their own. Unsupervised models are able to learn on their own based on their algorithms, without being explicitly informed if what they are doing is correct. Meanwhile, indicated by its name, semi-supervised models lie between supervised and unsupervised models. Many machine learning researchers have found that using unlabeled data in combination with small amounts of labeled data can significantly improve learning accuracy.
+In contrast to supervised models, datasets for unsupervised models do not contain labels, leaving models to identify the pattern on their own. Unsupervised models are able to learn on their own based on their algorithms, without being explicitly informed if what they are doing is correct. Meanwhile, indicated by its name, semi-supervised models lie between supervised and unsupervised models. Many machine learning researchers have found that using unlabeled data in combination with small amounts of labeled data can significantly improve learning accuracy. The major packages and classes that are commonly used are identified below:
 
 1. neighbors
     * KNN(K-Nearest Neighbors)
