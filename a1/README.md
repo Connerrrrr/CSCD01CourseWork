@@ -24,7 +24,7 @@
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/sklearnFlowchart.svg "Overall Flow Diagram")
 
-All modules in sklearn can be categorized as above. Users will first use some modules to analyze the input data sets and then do a preprocessing to encode, formalize and simplify input data sets. Then users will do some feature engineering to extract and select some useful features. Most importantly, sklearn provides various kinds of machine learning models over all three types of learnings (supervised, semi-supervised and unsupervised). It also provides some model selection modules to select a good model for classification or regression. Finally, users are able to review the selected models and then make a choice to reselect another model or output the result. Throughout the whole process, some other modules like base, utils, expectations and some external libraries such as numpy, scipy and cython are also frequently used.
+All modules in sklearn can be categorized as above. Users will first use some modules to analyze the input data sets and then do a preprocessing to encode, formalize and simplify input data sets. Then users will do some feature engineering to extract and select some useful features. Most importantly, sklearn provides various kinds of machine learning models over all three types of learnings (supervised, semi-supervised, and unsupervised). It also provides some model selection modules to select a good model for classification or regression. Finally, users can review the chosen models and then decide to reselect another model or output the result. Some other modules like base, utils, expectations, and some external libraries such as NumPy, Scipy, and Cython are also frequently used throughout the whole process.
 
 --------
 
@@ -34,11 +34,11 @@ All modules in sklearn can be categorized as above. Users will first use some mo
 
 Scikit learn provides a few packages to perform data analysis such as covariance estimation, signals decomposition in components, cross decomposition, and imputation of missing values.
 
-Because many statistical problems require the estimation of a population’s covariance matrix, and there are variants of covariance. The **_sklearn.covariance_** package provides a few types of covariance categories like Empirical Covariance, Shrunk Covariance, Sparse Inverse Covariance, and Robust Covariance. They have an inheritance relationship shown in the image above as using inheritance allows different covariance classes to share common attributes and methods.
+Because many statistical problems require the estimation of a population’s covariance matrix, and there are variants of covariance. The **_sklearn.covariance_** package provides a few covariance categories like Empirical Covariance, Shrunk Covariance, Sparse Inverse Covariance, and Robust Covariance. They have an inheritance relationship shown in the image above as using inheritance allows different covariance classes to share common attributes and methods.
 
-In the real world, many datasets contain missing values, and those missing values may be valuable even so. In view of this problem, scikit learn comes up with a way to infer the missing values which is imputer. There are three imputers, Simple Imputer, Iterative Imputer, KNN Imputer. The imputers transform the datasets into being incompatible with scikit-learn estimators.
+Many datasets contain missing values in the real world, and those missing values may be valuable even so. Given this problem, scikit learn comes up with a way to infer the missing values, which is imputer. There are three imputers, Simple Imputer, Iterative Imputer, KNN Imputer. The imputers transform the datasets into being incompatible with scikit-learn estimators.
 
-When it comes to a problem where a matrix contains too many zeros, scikit learn provides the **_decomposition_** package to reduce a matrix into constituent parts that make it easier to calculate more complex matrix operations. Same as covariance, there are a variety of decompositions like dictionary learning, PCA, ICA, etc. Some python classes can be categorized into these definitions. Cross decomposition is similar to decomposition in general.
+When it comes to a problem where a matrix contains too many zeros, scikit learn provides the **_decomposition_** package to reduce a matrix into constituent parts that make it easier to calculate more complex matrix operations. Same as covariance, there are various decompositions like dictionary learning, PCA, ICA, etc. Some python classes can be categorized into these definitions. Cross decomposition is similar to decomposition in general.
 
 --------
 
@@ -48,12 +48,12 @@ When it comes to a problem where a matrix contains too many zeros, scikit learn 
 
 The **_sklearn.preprocessing_** package includes scaling, centering, normalization, binarization methods to change the raw data into a suitable data representation for the downstream estimators. 
 
-The **_sklearn.random_projection.py_** provides two projections such as **_SparseRandomProjection_**, **_GaussianRandomProjection_**, which are child classes of BaseRandomProjection, to quickly process data into models.
+The **_sklearn.random_projection.py_** provides two projections such as **_SparseRandomProjection_**, **_GaussianRandomProjection_**, which are child classes of BaseRandomProjection, to process data into models quickly.
 
 The **_sklearn.discriminant_analysis.py_** provides Linear and Quadratic Discriminant Analysis to 
 characterizes or separates objects.
 
-In general, the **_preprocessing package_** contains a lot of data processing classes and each class is highly decoupled. Since they are estimators, they inherited from **_BaseEstimator_** and some mixin classes to have special features.
+In general, the **_preprocessing package_** contains many data processing classes, and each class is highly decoupled. Since they are estimators, they inherited from **_BaseEstimator_** and included some mixin classes to have unique features.
 
 --------
 
@@ -61,15 +61,15 @@ In general, the **_preprocessing package_** contains a lot of data processing cl
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/FeatureEngineering.svg "Feature Engineering")
 
-The **_feature extraction_** module can be used to extract features in a format supported by machine learning algorithms from datasets consisting of formats such as text and image. Where **_PatchExtractor_** can extract patches from a collection of images, **_Vectorizers_** and the **_Transformer_** are used to transform list of feature-values into vectors and **_FeatureHasher_** will turn sequences of feature names into matrices.
+The **_feature extraction_** module can be used to extract features in a format supported by machine learning algorithms from datasets consisting of text and image formats. Where **_PatchExtractor_** can extract patches from a collection of images, **_Vectorizers_** and the **_Transformer_** are used to transform a list of feature-values into vectors, and **_FeatureHasher_** will turn sequences of feature names into matrices.
 
-The **_feature selection_** module can be used for feature selection/dimensionality reduction on sample sets, either to improve estimators’ accuracy scores or to boost their performance on very high-dimensional datasets. Note that **_RFE_** and **_RFECV_** are for ranking features while other classes are for selecting features.
+The **_feature selection_** module can be used for feature selection/dimensionality reduction on sample sets to improve estimators’ accuracy scores or boost their performance on very high-dimensional datasets. Note that **_RFE_** and **_RFECV_** are for ranking features while other classes are for selecting features.
 
 --------
 
 ### Modeling
 
-The modeling module is the place to train the dataset, which is the most exciting part in machine learning, and consists of two main sections, i.e. supervised models and unsupervised & semi-supervised models. They both inherit from **_BaseEstimator_** class and include various **_Mixins_**, which can be viewed as interfaces with implemented methods. The Mixin pattern is an example of enforcing the **_dependency inversion principle_**, achieving the **_low coupling_**.
+The modeling module is the place to train the dataset, which is the most exciting part of machine learning, and consists of two main sections, i.e., supervised models and unsupervised & semi-supervised models. They both inherit from **_BaseEstimator_** class and include various **_Mixins_**, which can be viewed as interfaces with implemented methods. The Mixin pattern is an example of enforcing the **_dependency inversion principle_**, achieving the **_low coupling_**.
 
 #### Supervised Models
 
@@ -100,7 +100,7 @@ Supervised models are the most common sub-branch of machine learning models toda
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Unsupervised%26Semi-supervised%20Model.svg "Unsupervised and Semi-supervised learning Models")
 
-In contrast to supervised models, datasets for unsupervised models do not contain labels, leaving models to identify the pattern on their own. Unsupervised models are able to learn on their own based on their algorithms, without being explicitly informed if what they are doing is correct. Meanwhile, indicated by its name, semi-supervised models lie between supervised and unsupervised models. Many machine learning researchers have found that using unlabeled data in combination with small amounts of labeled data can significantly improve learning accuracy. The major packages and classes that are commonly used are identified below:
+In contrast to supervised models, datasets for unsupervised models do not contain labels, leaving models to identify the pattern independently. Unsupervised models can learn on their own based on their algorithms without being explicitly informed if what they are doing is correct. Meanwhile, indicated by its name, semi-supervised models lie between supervised and unsupervised models. Many machine learning researchers have found that using unlabeled data combined with small amounts of labeled data can significantly improve learning accuracy. The major packages and classes that are commonly used are identified below:
 
 1. neighbors
     * KNN(K-Nearest Neighbors)
@@ -117,11 +117,11 @@ In contrast to supervised models, datasets for unsupervised models do not contai
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/model_selection.svg "Model Selection")
 
-For model selection, it focuses on two main purposes: evaluating estimator performance and tuning the hyper-parameters. This section also provided a learning curve for the validation and training score for the estimator.
+For model selection, it focuses on two primary purposes: evaluating estimator performance and tuning the hyper-parameters. This section also provided a learning curve for the validation and training score for the estimator.
 
-First, in order to evaluate estimators, scikit-learn uses cross validation to approach this goal. It split the dataset into two parts, training set and test data. The class under **_BaseShuffleSplit_** are all different types of splits for different situations. The main function _train\_test\_split_ that was implemented inside **_ShuffleSplit_** can only perform strastratified splitting. That is why scikit-learn implemented a **_GroupShuffleSplit_** class to do the group split. The other main class would be KFold, which is also a classic cross validation technique.
+First, to evaluate estimators, scikit-learn uses cross-validation to approach this goal. It split the dataset into two parts, training set, and test data. The class under **_BaseShuffleSplit_** are all different types of splits for different situations. The main function _train\_test\_split_ implemented inside **_ShuffleSplit_** can only perform strastratified splitting. That is why scikit-learn implemented a **_GroupShuffleSplit_** class to do the group split. The other main class would be KFold, which is also a classic cross-validation technique.
 
-Secondly would be tuning the hyper-parameters, which is also known as the parameters that is not learnt within estimators. In scikit-learn, it uses **_GridSearchCV_** for all combinations, and **_RandomizedSearchCV_** can sample a given value with a specific distribution. Both of the classes can cooperate with **_HalvingGridSearchCV_** and perform much faster at finding the combination.
+The second would be tuning the hyper-parameters, which is also known as the parameters that are not learned within estimators. In scikit-learn, it uses **_GridSearchCV_** for all combinations, and **_RandomizedSearchCV_** can sample a given value with a specific distribution. Both of the classes can cooperate with **_HalvingGridSearchCV_** and perform much faster at finding the combination.
 
 --------
 
@@ -141,13 +141,13 @@ Second the inspection package, it did not contain any classes but rather two use
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Others.svg "Others")
 
-Modules in this section including the three external libraries numpy, cython and scipy are commonly used everywhere in sklearn.
+Modules in this section, including the three external libraries Numpy, Cython, and Scipy are commonly used everywhere in sklearn.
 
-There is a base.py file in the home directory of sklearn package, it defines various **_Mixin_** classes that are used as base classes for this project.
+There is a base.py file in the home directory of the sklearn package, and it defines various **_Mixin_** classes used as base classes for this project.
 
 The **_compose_** module contains meta-estimators for building composite models with transformers.
 
-The **_utils_** package includes various utilities, where **_Buch_** is a subclass of python dictionary that exposing keys as attributes, **_MissingValues_** is a data class for missing data information, **_deprecated_** is a decorator to mark a function or class as deprecated and **_loguniform_** is class supporting log-uniform random variables which inherent from scipy.stats.reciprocal.
+The **_utils_** package includes various utilities, where **_Buch_** is a subclass of python dictionary that exposing keys as attributes, **_MissingValues_** is a data class for missing data information, **_deprecated_** is a decorator to mark a function or class as deprecated and **_loguniform_** is class supporting log-uniform random variables which inherent from Scipy.stats.reciprocal.
 
 ## Design Patterns
 
@@ -159,7 +159,7 @@ The **_utils_** package includes various utilities, where **_Buch_** is a subcla
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Strategy_Sequence_Diagram.svg "Sequence Diagram of Strategy")
 
-The strategy pattern enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use. Since scikit-learn is a python machine learning library, which has a lot of different models with the same function signature, and the algorithms in those functions are different as well, therefore there are numerous cases where scikit-learn uses the strategy pattern. Like the image shown above, Class “LinearModel” is an abstract base class with an abstract method fit(). All its child classes has different implementations of fit().
+The strategy pattern enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, the code receives runtime instructions to which in a family of algorithms to use. Since scikit-learn is a python machine learning library, which has many different models with the same function signature, and the algorithms in those functions are different as well, there are numerous cases where scikit-learn uses the strategy pattern. Like the image shown above, Class “LinearModel” is an abstract base class with an abstract method fit(). All its child classes have different implementations of fit().
 
 #### Code Example
 
@@ -369,7 +369,7 @@ As you can see, both Class LinearRegression and BayesianRidge are the child clas
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Dependency_Injection_Sequence_Diagram.svg "Sequence Diagram of Dependency Injection")
 
-Dependency injection plays a very important role when implementing IoC(Inversion of Control). The main purpose of dependency injection is to create the dependents objects outside the class and provide this object to a class through different ways. Dependency injection can broadly be separated into three different types, which are Constructor injection, Property Injection and Method Injection. Constructor injection will go through a constructor, Property injection will go through a property and method injection will go through a method. As our team read through the code of scikit-learn, we found out that there are lots of places that have been implemented using Dependency injection. Most of their codes are using Constructor injection.
+Dependency injection plays a significant role when implementing IoC(Inversion of Control). The primary purpose of dependency injection is to create the dependent objects outside the class and provide this object to a class in different ways. Dependency injection can broadly be separated into three different types: Constructor Injection, Property Injection, and Method Injection. Constructor injection will go through a constructor, Property Injection will go through a property, and Method Injection will go through a method. As our team read through the code of scikit-learn, we found out that many places have been implemented using Dependency injection. Most of their codes are using Constructor Injection.
 
 #### Code Example
 
@@ -482,7 +482,7 @@ class BaseEstimator:
         return self
 ```
 
-As we can see from the above code example,  we can see that both GridSearchCV, and RandomizeSearchCV’s constructor in \_search.py takes an estimator like SVC in base.py as parameter. Also, HavingRandomSearchCV’s constructor in \_search\_successive_halving.py also takes an estimator as parameter. They all have imported it in the \_\_init\_\_ method.
+As we can see from the above code example,  we can see that both GridSearchCV and RandomizeSearchCV’s constructor in \_search.py takes an estimator like SVC in base.py as the parameter. Also, HavingRandomSearchCV’s constructor in \_search\_successive_halving.py also takes an estimator as the parameter. They all have imported it in the \_\_init\_\_ method.
 
 ### Iterator Pattern
 
@@ -528,7 +528,7 @@ def __iter__(self):
                 yield params
 ```
 
-The yield statement suspends function’s execution and sends a value back to the caller, but retains enough state to enable function to resume where it is left off. When resumed, the function continues execution immediately after the last yield run. This allows its code to produce a series of values over time, rather than computing them at once and sending them back like a list.
+The yield statement suspends the function’s execution and sends a value back to the caller but retains enough state to enable the function to resume where it is left off. When resumed, the function continues execution immediately after the last yield run. This allows its code to produce a series of values over time, rather than computing them at once and sending them back like a list.
 
 #### Code example -- ParameterSampler: /sklearn/model_selection/_search.py
 
@@ -583,9 +583,9 @@ for est in estimators:
         )
 ```
 
-Python’s for loop abstracts the Iterator Pattern so thoroughly that most Python programmers are never even aware of the object design pattern that it enacts beneath the surface. The for loop performs repeated assignment, running its indented block of code once for each item in the sequence it is iterating over.
+Python’s for loop abstracts the Iterator Pattern so thoroughly that most Python programmers are never even aware of the object design pattern that it enacts beneath the surface. The for loop performs a repeated assignment, running its indented block of code once for each item in the sequence it is iterating over.
 
-Below is the sequence diagram for iterator design pattern. The implementation details of how to iterate elements in each collection are hidden. Clients only need to interact with a single iterator interface. Benefit from that, the level of coupling has decreased.
+Below is the sequence diagram for the iterator design pattern. The implementation details of how to iterate elements in each collection are hidden. Clients only need to interact with a single iterator interface. Benefit from that, the level of coupling has decreased.
 
 ## Appendix
 
