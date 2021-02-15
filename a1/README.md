@@ -34,11 +34,11 @@ All modules in sklearn can be categorized as above. Users will first use some mo
 
 Scikit learn provides a few packages to perform data analysis such as covariance estimation, signals decomposition in components, cross decomposition, and imputation of missing values.
 
-Because many statistical problems require the estimation of a population’s covariance matrix, and there are variants of covariance. The sklearn.covariance package provides a few types of covariance classes like Empirical Covariance, Shrunk Covariance, Sparse Inverse Covariance, and Robust Covariance. They have an inheritance relationship shown in the image above as using inheritance allows different covariance classes to share common attributes and methods.
+Because many statistical problems require the estimation of a population’s covariance matrix, and there are variants of covariance. The **_sklearn.covariance_** package provides a few types of covariance categories like Empirical Covariance, Shrunk Covariance, Sparse Inverse Covariance, and Robust Covariance. They have an inheritance relationship shown in the image above as using inheritance allows different covariance classes to share common attributes and methods.
 
 In the real world, many datasets contain missing values, and those missing values may be valuable even so. In view of this problem, scikit learn comes up with a way to infer the missing values which is imputer. There are three imputers, Simple Imputer, Iterative Imputer, KNN Imputer. The imputers transform the datasets into being incompatible with scikit-learn estimators.
 
-When it comes to a problem where a matrix contains too many zeros, scikit learn provides the decomposition package to reduce a matrix into constituent parts that make it easier to calculate more complex matrix operations. Same as covariance, there are a variety of decompositions like dictionary learning, PCA, ICA, etc. Some python classes can be categorized into these definitions. Cross decomposition is similar to decomposition in general.
+When it comes to a problem where a matrix contains too many zeros, scikit learn provides the **_decomposition_** package to reduce a matrix into constituent parts that make it easier to calculate more complex matrix operations. Same as covariance, there are a variety of decompositions like dictionary learning, PCA, ICA, etc. Some python classes can be categorized into these definitions. Cross decomposition is similar to decomposition in general.
 
 --------
 
@@ -46,14 +46,14 @@ When it comes to a problem where a matrix contains too many zeros, scikit learn 
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a1/Images/Preprocessing.svg "Preprocessing")
 
-The sklearn.preprocessing package includes scaling, centering, normalization, binarization methods to change the raw data into a suitable data representation for the downstream estimators. 
+The **_sklearn.preprocessing_** package includes scaling, centering, normalization, binarization methods to change the raw data into a suitable data representation for the downstream estimators. 
 
-The sklearn.random_projection.py provides two projections such as SparseRandomProjection, GaussianRandomProjection, which are child classes of BaseRandomProjection, to quickly process data into models.
+The **_sklearn.random_projection.py_** provides two projections such as **_SparseRandomProjection_**, **_GaussianRandomProjection_**, which are child classes of BaseRandomProjection, to quickly process data into models.
 
-The sklearn.discriminant_analysis.py provides Linear and Quadratic Discriminant Analysis to 
+The **_sklearn.discriminant_analysis.py_** provides Linear and Quadratic Discriminant Analysis to 
 characterizes or separates objects.
 
-In general, the preprocessing package contains a lot of data processing classes and each class is highly decoupled. Since they are estimators, they inherited from BaseEstimator and some mixin classes to have special features.
+In general, the **_preprocessing package_** contains a lot of data processing classes and each class is highly decoupled. Since they are estimators, they inherited from **_BaseEstimator_** and some mixin classes to have special features.
 
 --------
 
