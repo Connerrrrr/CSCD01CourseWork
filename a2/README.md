@@ -2,12 +2,12 @@
 
 ## Table of Content
 
-- [#18963]()
-- [#19352]()
-- [#16710]()
-- [#16924]()
-- [#19071]()
-- [#18940]()
+- [#18963](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#sklearnfeature_extractiongrid_to_graph-may-reorder-vertices-18963)
+- [#19352](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#interactive-imputer-cannot-accept-plsregression-as-an-estimator-due-to-shape-mismatch-19352)
+- [#16710](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#pipeline-requires-both-fit-and-transform-method-to-be-available-instead-of-only-fit_transform-16710)
+- [#16924](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#pipeline-requires-both-fit-and-transform-method-to-be-available-instead-of-only-fit_transform-16710)
+- [#19071](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#simpleimputer-missing_values-and-none-19071)
+- [#18940](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#diabetes-data-set-description-possibly-inaccurate-18940)
 
 ## sklearn.feature_extraction.grid_to_graph may reorder vertices #18963
 
