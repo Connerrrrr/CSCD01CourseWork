@@ -2,16 +2,12 @@
 
 ## Table of Content
 
-- [#18940]()
 - [#18963]()
 - [#19352]()
 - [#16710]()
 - [#16924]()
 - [#19071]()
-
-## Diabetes data set description. Possibly inaccurate? #18940
-
-[Link](https://github.com/scikit-learn/scikit-learn/issues/18940) to the issue page.
+- [#18940]()
 
 ## sklearn.feature_extraction.grid_to_graph may reorder vertices #18963
 
@@ -77,3 +73,7 @@ C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWa
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-1.png "File to reproduce")
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-2.png "Reproduce output")
+
+## Diabetes data set description. Possibly inaccurate? #18940
+
+[Link](https://github.com/scikit-learn/scikit-learn/issues/18940) to the issue page.
