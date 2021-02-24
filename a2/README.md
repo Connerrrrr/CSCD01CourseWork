@@ -26,8 +26,13 @@
     In grid\_to\_graph, you expect the vertices to correspond to the implicit order defined by the mask. This is not always the case, due to the occurrence of isolated vertices that are dismissed in the reindexing of the vertices.
 
 - Reproduce
+    - version
+        - Python 3.9.1
+        - Numpy 1.21.0.dev0+577.g48808e1a6
 
-![alt text][]
+![alt text][https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/18963-1.png "File to reproduce"]
+
+![alt text][https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/18963-2.png "Reproduce output"]
 
 ## Interactive Imputer cannot accept PLSRegression() as an estimator due to "shape mismatch" #19352
 
@@ -41,11 +46,11 @@
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16924) to the issue page.
 
-### Description
+- Description
 
-While using **_sklearn.metrics.matthews\_corrcoef_** with the steps below, program throws a **_RuntimeWarning_**, reporting a division by zero.
+    While using **_sklearn.metrics.matthews\_corrcoef_** with the steps below, program throws a **_RuntimeWarning_**, reporting a division by zero.
 
-### Reproduce
+- Reproduce
 
 ```python
 import sklearn.metrics                         
@@ -54,11 +59,11 @@ preds = [0,0,0,0,0]
 sklearn.metrics.matthews_corrcoef(trues, preds)
 ```
 
-#### Expected Results
+- Expected Results
 
-No warning is thrown.
+    No warning is thrown.
 
-#### Actual Results
+- Actual Results
 
 ```python
 C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWarning: invalid value encountered in double_scalars
