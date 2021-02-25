@@ -55,7 +55,7 @@
 
 - Location
 
-	sklearn/pipeline.py
+	/sklearn/pipeline.py
 
 - Description
 
@@ -74,6 +74,10 @@
 ## Matthews correlation coefficient metric throws misleading division by zero RuntimeWarning #16924
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16924) to the issue page.
+
+- Location
+
+	/sklearn/metrics/\_classification.py: matthews\_corrcoef
 
 - Description
 
@@ -121,7 +125,3 @@
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-1.png "File to reproduce")
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-2.png "Reproduce output")
-
-## Diabetes data set description. Possibly inaccurate? #18940
-
-[Link](https://github.com/scikit-learn/scikit-learn/issues/18940) to the issue page.
