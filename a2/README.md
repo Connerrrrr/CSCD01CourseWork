@@ -73,16 +73,20 @@ C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWa
 ## SimpleImputer, missing_values and None #19071
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19071) to the issue page.
 
-- Location: 
+- Location:
+
     /sklearn/impute/\_base.py: class SimpleImputer
 
 - Description:
+
     As the documentation in scikit learn mentions, the simpleImputer can take None as missing value, but it throws a value error when there is None in the input array.
 
-- Expected Results: 
+- Expected Results:
+
     No error throws.
 
-- Actual Results: 
+- Actual Results:
+
     ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
 
 - Reproduce
