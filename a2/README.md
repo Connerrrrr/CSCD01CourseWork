@@ -71,6 +71,7 @@ C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWa
 ```
 
 ## SimpleImputer, missing_values and None #19071
+[Link](https://github.com/scikit-learn/scikit-learn/issues/19071) to the issue page.
 
 - location: 
     /sklearn/impute/_base.py: class SimpleImputer
@@ -83,9 +84,7 @@ C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWa
 - Actual Results: 
     ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
 
-
-[Link](https://github.com/scikit-learn/scikit-learn/issues/19071) to the issue page.
-
+- Reproduce
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-1.png "File to reproduce")
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-2.png "Reproduce output")
