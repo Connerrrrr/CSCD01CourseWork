@@ -87,7 +87,9 @@ C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWa
 
 - Actual Results:
 
+    ```python
     ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+    ```
 
 - Reproduce
 
