@@ -40,6 +40,8 @@
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16710) to the issue page.
 
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-1.png "File to reproduce")
+
 ## Matthews correlation coefficient metric throws misleading division by zero RuntimeWarning #16924
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16924) to the issue page.
