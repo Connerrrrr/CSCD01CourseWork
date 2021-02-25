@@ -65,7 +65,13 @@
 
     - Expected Results
 
+		No warning is thrown.
+
     - Actual Results
+
+    ```python
+    TypeError: All intermediate steps should be transformers and implement fit and transform or be the string 'passthrough' 'TSNE(angle=0.5,...
+    ```
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-1.png "File to reproduce")
 
