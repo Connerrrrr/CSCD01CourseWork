@@ -43,7 +43,27 @@
 
     - Expected Results
 
+	```python
+	[[   8.3252       41.            6.98412698 ...    2.55555556
+    37.88       -122.25930206]
+ 	[   8.3014       21.            6.23813708 ...    2.10984183
+    37.86       -122.22      ]
+ 	[   7.2574       52.            8.28813559 ...    2.80225989
+    37.85       -122.24      ]
+ 	...
+ 	[   3.60438721   50.            5.33480176 ...    2.30396476
+    37.88       -122.29      ]
+ 	[   5.1675       52.            6.39869281 ...    2.44444444
+    37.89       -122.29      ]
+ 	[   5.1696       52.            6.11590296 ...    2.70619946
+    37.8709526  -122.29      ]]
+	```
+
     - Actual Results
+
+	```python
+	ValueError: shape mismatch: value array of shape (27,1) could not be broadcast to indexing result of shape (27,)
+	```
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-1.png "File to reproduce")
 
