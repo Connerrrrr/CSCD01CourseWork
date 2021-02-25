@@ -22,27 +22,46 @@
     In grid\_to\_graph, you expect the vertices to correspond to the implicit order defined by the mask. This is not always the case, due to the occurrence of isolated vertices that are dismissed in the reindexing of the vertices.
 
 - Reproduce
-    - version
-        - Python 3.9.1
-        - Numpy 1.21.0.dev0+577.g48808e1a6
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/18963-1.png "File to reproduce")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/18963-1.png "File to reproduce")
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/18963-2.png "Reproduce output")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/18963-2.png "Reproduce output")
 
 ## Interactive Imputer cannot accept PLSRegression() as an estimator due to "shape mismatch" #19352
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19352) to the issue page.
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-1.png "File to reproduce")
+- Location
+
+- Description
+
+- Reproduce
+
+    - Expected Results
+
+    - Actual Results
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-1.png "File to reproduce")
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-2.png "Reproduce output")
 
 ## Pipeline requires both fit and transform method to be available instead of only fit_transform #16710
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16710) to the issue page.
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-1.png "File to reproduce")
+- Location
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-2.png "Reproduce output")
+- Description
+
+- Reproduce
+
+    - Expected Results
+
+    - Actual Results
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-1.png "File to reproduce")
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-2.png "Reproduce output")
 
 ## Matthews correlation coefficient metric throws misleading division by zero RuntimeWarning #16924
 
@@ -91,9 +110,9 @@
     ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
     ```
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-1.png "File to reproduce")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-1.png "File to reproduce")
 
-![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-2.png "Reproduce output")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-2.png "Reproduce output")
 
 ## Diabetes data set description. Possibly inaccurate? #18940
 
