@@ -32,8 +32,10 @@
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19352) to the issue page.
 
 - Location
+	/sklearns/impute/_iterative.py
 
 - Description
+	As the issues mention in github, when user setting the estimator as PLSRegression(), a ValueError is triggered by module '_iteractive.py' located in impute package in line 348, caused by "shape mismatch"
 
 - Reproduce
 
@@ -50,8 +52,10 @@
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16710) to the issue page.
 
 - Location
+	sklearn/pipeline.py
 
 - Description
+	As the issues mention in github, when a user calling a pipeline with a nonparametric function causes an error in pipeline.py. a regular transform() method does not exist since there is no projection or mapping that is learned. 
 
 - Reproduce
 
