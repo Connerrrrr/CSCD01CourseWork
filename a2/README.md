@@ -54,23 +54,20 @@
 
 - Reproduce
 
-```python
-import sklearn.metrics                         
-trues = [1,0,1,1,0]                            
-preds = [0,0,0,0,0]                            
-sklearn.metrics.matthews_corrcoef(trues, preds)
-```
+    - Expected Results
 
-- Expected Results
+        No warning is thrown.
 
-    No warning is thrown.
+    - Actual Results
 
-- Actual Results
+    ```python
+    RuntimeWarning: invalid value encountered in double_scalars
+        mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+    ```
 
-```python
-C:\Anaconda3\lib\site-packages\sklearn\metrics\_classification.py:870: RuntimeWarning: invalid value encountered in double_scalars
-  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
-```
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16924-1.png "File to reproduce")
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16924-2.png "Reproduce output")
 
 ## SimpleImputer, missing_values and None #19071
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19071) to the issue page.
