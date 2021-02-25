@@ -34,6 +34,8 @@
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19352) to the issue page.
 
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-1.png "File to reproduce")
+
 ## Pipeline requires both fit and transform method to be available instead of only fit_transform #16710
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16710) to the issue page.
