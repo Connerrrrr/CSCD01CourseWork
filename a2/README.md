@@ -68,6 +68,56 @@
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-2.png "Reproduce output")
 
+- Fix
+
+  - Source Code
+
+    - Original
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-original.png "Original Source Code")
+
+    - Fixed
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-fixed.png "Fixed Source Code")
+
+  - Fixed Result 1
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-fixed-result-1.png "Fixed Result 1")
+
+  - Fixed Result 2
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-fixed-result-2.png "Fixed Result 2")
+
+  - Explaination
+
+    In \_iterative.py, the dimension of the array is not correct in line 346. A one-dimensional array is needed, resulting in a missing two-dimensional array.The solution for this would be Convert the two-dimensional array to a one-dimensional array.
+
+  - Test File
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-test-file-1.png "Test File 1")
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-test-file-2.png "Test File 2")
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-test-file-3.png "Test File 3")
+
+  - Test Result
+
+    - 1D array
+
+      ```python
+      pytest ./sklearn/impute/tests/test_impute.py -v -k imputation_1D
+      ```
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-test-result-1d.png "Test Result of 1D array")
+
+    - 2D array
+
+      ```python
+      pytest ./sklearn/impute/tests/test_impute.py -v -k imputation_example
+      ```
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19352-test-result-2d.png "Test Result of 2D array")
+
 ## Pipeline requires both fit and transform method to be available instead of only fit_transform #16710
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16710) to the issue page.
@@ -184,7 +234,7 @@
             return mcc
     ```
 
-    - Modified
+    - Fixed
 
     ```python
     def matthews_corrcoef(y_true, y_pred, *, sample_weight=None):
