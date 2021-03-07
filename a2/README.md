@@ -8,6 +8,8 @@
 - [#16924](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#matthews-correlation-coefficient-metric-throws-misleading-division-by-zero-runtimewarning-16924)
 - [#19071](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a2#simpleimputer-missing_values-and-none-19071)
 
+In Assignment 2, we fixed 4 issues from selected 5 issues, excluding the first issue #18963. Fixed solution of other issues can be found below each issue section.
+
 ## sklearn.feature_extraction.grid_to_graph may reorder vertices #18963
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/18963) to the issue page.
