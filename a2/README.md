@@ -298,3 +298,33 @@
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-1.png "File to reproduce")
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-2.png "Reproduce output")
+
+- Fix
+
+  - Source Code
+
+    - Original
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-original.png "Original Source Code")
+
+    - Modified
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-fixed.png "Fiexed Source Code")
+
+  - Fixed Result 1
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-fixed-result-1.png "Fixed Result 1")
+
+  - Fixed Result 2
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-fixed-result-2.png "Fixed Result 2")
+
+  - Explaination
+
+    When we called _SimpleImputer(missing\_values=None).fit\_transform(a)_, the original error message was just the python error message _“ValueError: Input contains NaN, infinity or a value too large for dtype('float64')”_. The case which the missing value is of None type was not handled from line 256 to line 262 in the **original src code**. Thus, the users would be confused if they did not know None is not numeric data and can not be used with either strategy mean or strategy median.
+
+    In the **fixed src code**, we have handled this error from line 261 to line 265. Now the new error message is shown as **Fixed result 1**, which tells you why this is error happened (Cannot use mean strategy with non-numeric data, and None is an non-numeric data) and provides an alternative missing value parameter np.NaN _(SimpleImputer(missing\_values=np.nan).fit\_transform(a))_ to deal with the None case. The result of calling the alternative function is shown as **Fixed result2**, no error is thrown as expected.
+
+  - PyTest test case
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/19071-test.png "PyTest test case")
