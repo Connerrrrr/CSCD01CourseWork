@@ -79,7 +79,7 @@
 
 - Description
 
-  As the issues mention in github, when a user calling a pipeline with a nonparametric function causes an error in pipeline.py. a regular transform() method does not exist since there is no projection or mapping that is learned. 
+  As the issues mention in github, when a user calling a pipeline with a nonparametric function causes an error in pipeline.py. a regular transform() method does not exist since there is no projection or mapping that is learned.
 
 - Reproduce
 
