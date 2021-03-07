@@ -96,6 +96,42 @@
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-2.png "Reproduce output")
 
+- Fix
+
+  - Source Code
+
+    - Original
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-original.png "Original Source Code")
+
+    - Fixed
+
+      ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-fixed.png "Fixed Source Code")
+
+  - Fixed Result 1
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-fixed-result-1.png "Fixed Result 1")
+
+  - Fixed Result 2
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-fixed-result-2.png "Fixed Result 2")
+
+  - Explaination
+
+    In pipeline.py Pipeline requires both fit and transform methods to be available instead of only fit_transform however, TSNE has "fit", has "fit\_transform", but it does not have "transform". PCA has "fit", has "fit\_transform", but it does not have "transform". The solution would be we change the first if statement to check whether the class have “transform” function or not then raise the error.
+
+  - Test File
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-test-file.png "Test File")
+
+  - Test Result
+
+    ```python
+    pytest ./sklearn/tests/test_pipeline.py -v -k make_pipeline
+    ```
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a2/Images/16710-test-result.png "Test Result")
+
 ## Matthews correlation coefficient metric throws misleading division by zero RuntimeWarning #16924
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/16924) to the issue page.
