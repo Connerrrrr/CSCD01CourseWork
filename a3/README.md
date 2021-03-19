@@ -116,7 +116,7 @@ For MacOs users, .DStore files also get loaded which is an undesired behaviour.
     4. Type “from sklearn.datasets import load_files”
     5. Type “load_files(file container path, formats=[‘.txt’, ‘.png’ (any format you like)])”
     6. The shell will list the files with the suffix txt or png indicating the txt files and png files are loaded
-    7. Create a python file, repeat step 2 and 5, and print the result of load_files give the same result
+    7. Create a python file, repeat step b to e, and print the result of load_files give the same result
 
     Examples:
 
