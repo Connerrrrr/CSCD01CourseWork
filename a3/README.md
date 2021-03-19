@@ -84,26 +84,26 @@ For MacOs users, .DStore files also get loaded which is an undesired behaviour.
 
     ```python
     def check_formats(d, formats):
-    """Helper function for load_files. 
+        """Helper function for load_files. 
 
-    Return True if the document d satisfies the required formats, otherwise false.
+        Return True if the document d satisfies the required formats, otherwise false.
 
-    Parameters:
-    ----------
-    d: str
-        document name.
-    formats : list of str or None
-        list of acceptable file formats. E.g. [".txt", ".pdf", ".png"]
-    """
+        Parameters:
+        ----------
+        d: str
+            document name.
+        formats : list of str or None
+            list of acceptable file formats. E.g. [".txt", ".pdf", ".png"]
+        """
 
-    if formats == None:
-        return True
-    
-    for f in formats:
-        if (d.endswith(f)):
+        if formats == None:
             return True
-    
-    return False
+        
+        for f in formats:
+            if (d.endswith(f)):
+                return True
+        
+        return False
     ```
 
 - Testing
