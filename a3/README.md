@@ -121,7 +121,7 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
     ```
 
     From above source code, it is obvious that variable **_feature\_name_** will be assigned only after **_v_**, which is the value in the given dictionary, is identified as one of the folloing types: String, Number, Mapping and Iterable.
-    
+
     The user-defined **_class A_** is clearly not one of them, which cause the **_referenced before assignment_** error after.
 
 - Design
