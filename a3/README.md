@@ -4,7 +4,7 @@
 
 - [#19520](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a3#fix-feature_name-referenced-before-assignment)
 - [#19269](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a3#sklearndatasetsload_files-select-file-extension)
-- [Work Log](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a3#sklearndatasetsload_files-select-file-extension)
+- [Work Log](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a3#work-log)
 
 In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed solution and investigation can be found below each issue section.
 
