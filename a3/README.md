@@ -74,55 +74,55 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
 
     - Source Code
 
-    Below are \_transform function defined in following path:
+      Below are \_transform function defined in following path:
 
-    /sklearn/feature\_extraction/\_dict\_vectorizer.py
+      /sklearn/feature\_extraction/\_dict\_vectorizer.py
 
-    ```python
-    class DictVectorizer(TransformerMixin, BaseEstimator):
+      ```python
+      class DictVectorizer(TransformerMixin, BaseEstimator):
 
-        ...
+          ...
 
-        def _transform(self, X, fitting):
-            ...
+          def _transform(self, X, fitting):
+              ...
 
-            # collect all the possible feature names and build sparse matrix at
-            # same time
-            for x in X:
-                for f, v in x.items():
-                    if isinstance(v, str):
-                        feature_name = "%s%s%s" % (f, self.separator, v)
-                        v = 1
-                    elif isinstance(v, Number) or (v is None):
-                        feature_name = f
-                    elif isinstance(v, Mapping):
-                        raise TypeError(f'Unsupported value Type {type(v)} '
-                                        f'for {f}: {v}.\n'
-                                        'Mapping objects are not supported.')
-                    elif isinstance(v, Iterable):
-                        feature_name = None
-                        self._add_iterable_element(f, v, feature_names, vocab,
-                                                fitting=fitting,
-                                                transforming=transforming,
-                                                indices=indices, values=values)
+              # collect all the possible feature names and build sparse matrix at
+              # same time
+              for x in X:
+                  for f, v in x.items():
+                      if isinstance(v, str):
+                          feature_name = "%s%s%s" % (f, self.separator, v)
+                          v = 1
+                      elif isinstance(v, Number) or (v is None):
+                          feature_name = f
+                      elif isinstance(v, Mapping):
+                          raise TypeError(f'Unsupported value Type {type(v)} '
+                                          f'for {f}: {v}.\n'
+                                          'Mapping objects are not supported.')
+                      elif isinstance(v, Iterable):
+                          feature_name = None
+                          self._add_iterable_element(f, v, feature_names, vocab,
+                                                  fitting=fitting,
+                                                  transforming=transforming,
+                                                  indices=indices, values=values)
 
-                    if feature_name is not None:
-                        if fitting and feature_name not in vocab:
-                            vocab[feature_name] = len(feature_names)
-                            feature_names.append(feature_name)
+                      if feature_name is not None:
+                          if fitting and feature_name not in vocab:
+                              vocab[feature_name] = len(feature_names)
+                              feature_names.append(feature_name)
 
-                        if feature_name in vocab:
-                            indices.append(vocab[feature_name])
-                            values.append(self.dtype(v))
+                          if feature_name in vocab:
+                              indices.append(vocab[feature_name])
+                              values.append(self.dtype(v))
 
-                indptr.append(len(indices))
+                  indptr.append(len(indices))
 
-            ...
-    ```
+              ...
+      ```
 
-    From above source code, it is obvious that variable **_feature\_name_** will be assigned only after **_v_**, which is the value in the given dictionary, is identified as one of the folloing types: String, Number, Mapping and Iterable.
+      From above source code, it is obvious that variable **_feature\_name_** will be assigned only after **_v_**, which is the value in the given dictionary, is identified as one of the folloing types: String, Number, Mapping and Iterable.
 
-    The user-defined **_class A_** is clearly not one of them, which cause the **_referenced before assignment_** error after.
+      The user-defined **_class A_** is clearly not one of them, which cause the **_referenced before assignment_** error after.
 
 - Design
 
