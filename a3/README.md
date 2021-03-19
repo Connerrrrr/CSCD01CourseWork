@@ -70,7 +70,7 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
 
       Based on general use case and common sense, conversion can only be done with String, Number or Iterable. User-defined types such as **_class A_** cannot be interpreted before its definition.
 
-      Therefore, there is no way for implementation to accept taking user-defined types and previos code apparently did not consider this situation, which leads to the error stated above.
+      Therefore, there is no way for implementation to accept taking user-defined types and previous code apparently did not consider this situation, which leads to the error stated above.
 
     - Source Code
 
