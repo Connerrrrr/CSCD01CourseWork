@@ -124,9 +124,33 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
 
       The user-defined **_class A_** is clearly not one of them, which cause the **_referenced before assignment_** error after.
 
-- Design
+- Design and Interactions
 
-- Interactions
+  Since the use case of such user-defined classes does not make sense, we only need to implement an error to be thrown, in order to notify the users that it is not legal to do so.
+  
+  Something like below:
+
+  ```python
+  if isinstance(v, str):
+      feature_name = "%s%s%s" % (f, self.separator, v)
+      v = 1
+  elif isinstance(v, Number) or (v is None):
+      feature_name = f
+  elif isinstance(v, Mapping):
+      raise TypeError(f'Unsupported value Type {type(v)} '
+                      f'for {f}: {v}.\n'
+                      'Mapping objects are not supported.')
+  elif isinstance(v, Iterable):
+      feature_name = None
+      self._add_iterable_element(f, v, feature_names, vocab,
+                              fitting=fitting,
+                              transforming=transforming,
+                              indices=indices, values=values)
+  else:
+      raise TypeError(f'Unsupported value Type {type(v)} '
+                      f'for {f}: {v}.\n'
+                      f'{type(v)} objects are not supported.')
+  ```
 
 ## sklearn.datasets.load_files select file extension
 
