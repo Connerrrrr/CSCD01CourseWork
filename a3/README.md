@@ -343,3 +343,5 @@ Here is the screenshot of the work log before and after the scrum.
 Before Scrum:
 
 ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a3/Images/scrum-start.png "Before Scrum")
+
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a3/Images/scrum-end.png "After Scrum")
