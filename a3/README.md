@@ -152,6 +152,12 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
                       f'{type(v)} objects are not supported.')
   ```
 
+  ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a3/Images/19520-uml.svg "UML")
+
+  As for interaction between new code and existing code, from above UML, we can easily identify that the **_DictVectorizer_** class only has relations with its parents.
+
+  Besides, the method related to this issue is its previate method **\_transform**. Therefore, such modification does not have any impact other than its desired output.
+
 ## sklearn.datasets.load_files select file extension
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19269) to the issue page.
