@@ -124,7 +124,7 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
 
       The user-defined **_class A_** is clearly not one of them, which cause the **_referenced before assignment_** error after.
 
-- Design and Interactions
+- Design
 
   Since the use case of such user-defined classes does not make sense, we only need to implement an error to be thrown, in order to notify the users that it is not legal to do so.
   
@@ -151,6 +151,8 @@ In Assignment 3, we added 1 new feature #19269 from selected 2 issues. Fixed sol
                       f'for {f}: {v}.\n'
                       f'{type(v)} objects are not supported.')
   ```
+
+- Interactions
 
   ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a3/Images/19520-uml.svg "UML")
 
