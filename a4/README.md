@@ -7,8 +7,7 @@
     - New Feature
     - Reproduce
     - Analysis
-  - Design
-  - Interactions
+  - Design and Interactions
 - [#19679](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a4#pass-the-confusion-matrix-as-a-parameter)
   - Investigation
     - Reproduce
