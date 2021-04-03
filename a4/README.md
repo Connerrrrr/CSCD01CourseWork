@@ -39,7 +39,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - Reproduce
 
-    ![alt text]( "Reproduce")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-Reproduce.png "Reproduce")
 
     - Expected Result:
 
@@ -53,11 +53,11 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
     Note: in line 18, vecs is a sparse matrix. If we convert it into a dense matrix by using toarray() method, then it will be fine.
 
-    ![alt text]( "Reproduce with alternative")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-Reproduce_with_alternative.png "Reproduce with alternative")
 
   - Analysis
 
-    ![alt text]( "UML")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-UML.png "UML")
 
     HistGradientBoostingClassifier inherits the fit() method from BaseHistGradientBoosting.
 
@@ -65,25 +65,25 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
     In line 403, the fit() method has called _raw_predict() method.
 
-    ![alt text]( "_raw_predict")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-_raw_predict.png "_raw_predict")
 
     From: **sklearn/ensemble/\_hist\_gradient\_boosting/gradient\_boosting.py**
 
     In line 736, the _raw_predict() has then called the check_array() method.
 
-    ![alt text]( "check_array")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-check_array.png "check_array")
 
     From: **sklearn/utils/validation.py**
 
     In line 593, the check\_array() method has further called \_ensure\_sparse\_format() method, with the parameter accept_sparse set to false.
 
-    ![alt text]( "_ensure_sparse_format")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-_ensure_sparse_format-1.png "_ensure_sparse_format")
 
     From: **sklearn/utils/validation.py**
 
     In line 360, the TypeError is finally raised in the \_ensure\_sparse\_format() method.
 
-    ![alt text]( "_ensure_sparse_format")
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/15336-_ensure_sparse_format-2.png "_ensure_sparse_format")
 
 - Design and Interactions
 
