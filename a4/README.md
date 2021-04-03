@@ -3,7 +3,23 @@
 ## Table of Content
 
 - [#19679](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a4#add-sparse-matrix-support-for-histgradientboostingclassifier)
+  - Investigation
+    - Reproduce
+    - Analysis
+  - Design
+  - Interactions
 - [#15336](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a4#pass-the-confusion-matrix-as-a-parameter)
+  - Investigation
+    - Reproduce
+    - Analysis
+  - Design
+  - Interactions
+  - Implementation
+  - User Guide
+  - Testing
+    - Acceptance Test
+    - Regression Test
+    - Unit Test
 - [Work Log](https://github.com/UTSCCSCD01/course-project-apple_team/tree/master/a4#work-log)
 
 In Assignment 4, we have one new feature #19679 and one hard enhencement #15336. Fixed solution and investigation can be found below each issue section.
@@ -33,5 +49,17 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 - Design
 
 - Interactions
+
+- Implementation
+
+- User Guide
+
+- Testing
+
+  - Acceptance Test
+
+  - Regression Test
+
+  - Unit Test
 
 ## Work Log
