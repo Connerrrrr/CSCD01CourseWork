@@ -291,7 +291,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
         ```python
         @_deprecate_positional_args
         def f1_score(y_true, y_pred, *, labels=None, pos_label=1, average='binary',
-                    sample_weight=None, zero_division="warn"):
+                     sample_weight=None, zero_division="warn"):
 
             ...
 
@@ -326,7 +326,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
         ```python
         @_deprecate_positional_args
         def recall_score(y_true, y_pred, *, labels=None, pos_label=1, average='binary',
-                        sample_weight=None, zero_division="warn"):
+                         sample_weight=None, zero_division="warn"):
 
             ...
 
@@ -458,7 +458,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
       ```python
       @_deprecate_positional_args
       def jaccard_score_from_confusion(MCM, *, average='binary', sample_weight=None,
-                                      zero_division="warn"):
+                                       zero_division="warn"):
 
           numerator = MCM[:, 1, 1]
           denominator = MCM[:, 1, 1] + MCM[:, 0, 1] + MCM[:, 1, 0]
@@ -575,7 +575,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
         ```python
         @_deprecate_positional_args
         def fbeta_score_from_confusion(MCM, *, beta, average='binary',
-                                      sample_weight=None, zero_division="warn"):
+                                       sample_weight=None, zero_division="warn"):
 
             _, _, f, _ = precision_recall_fscore_support_from_confusion(MCM,
                                                                         beta=beta,
@@ -688,7 +688,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
     ```python
     def jaccard_score_from_confusion(MCM, *, average='binary', sample_weight=None,
-                                 zero_division="warn"):
+                                     zero_division="warn"):
     """Jaccard similarity coefficient score from given multilabel confusion matrix.
 
     Read more in jaccard_score() below.
@@ -787,10 +787,10 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
     ```python
     def precision_recall_fscore_support_from_confusion(MCM, *, beta=1.0, average=None,
-                                                   warn_for=('precision', 'recall',
-                                                             'f-score'),
-                                                   sample_weight=None,
-                                                   zero_division="warn"):
+                                                       warn_for=('precision', 'recall',
+                                                                 'f-score'),
+                                                       sample_weight=None,
+                                                       zero_division="warn"):
     """Compute precision, recall, F-measure and support for each class from given multilabel confusion matrix.
 
     Read more in precision_recall_fscore_support() below.
@@ -901,7 +901,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
       ```python
       def fbeta_score_from_confusion(MCM, *, beta, average='binary',
-                               sample_weight=None, zero_division="warn"):
+                                     sample_weight=None, zero_division="warn"):
       """Compute the F-beta score from the given multilabel confusion matrix.
 
       Read more in fbeta_score() below.
@@ -989,7 +989,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
       ```python
       def f1_score_from_confusion(MCM, *, average='binary', sample_weight=None,
-                               zero_division="warn"):
+                                  zero_division="warn"):
       """Compute the F1 score from the given multilabel confusion matrix, also known as balanced F-score or F-measure.
 
       Read more in f1_score() below.
@@ -1078,7 +1078,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
       ```python
       def precision_score_from_confusion(MCM, average='binary', sample_weight=None,
-                                   zero_division="warn"):
+                                         zero_division="warn"):
       """Compute the precision from the given multilabel confusion matrix.
 
       Read more in precision_score() below.
@@ -1168,7 +1168,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
       ```python
       def recall_score_from_confusion(MCM, average='binary', sample_weight=None,
-                                zero_division="warn"):
+                                      zero_division="warn"):
       """Compute the recall from the given multilabel confusion matrix.
 
       Read more in recall_score() below.
