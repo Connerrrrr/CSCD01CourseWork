@@ -122,6 +122,29 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
 - Design and Interactions
 
+  Following constraints needs to apply:
+
+    1. It is appropriate to make **y_true** and **y_pred** **ignored** if confusion matrix is passed.
+    2. Multilabel_confusion_matrix should have different variable name than regular confusion matrix.
+
+  Therefore, it is better to seperate the original functions into two part: **the part before construction of confusion matrix** and **the part after the confusion matrix**.
+
+  Something similar as following:
+
+  ```python
+  def orginal_function_from_confusion(cm, ...):
+    ...
+    return metric
+
+  def orginal_function(y_true, y_pred, ...):
+      ...
+      cm = confusion_matrix(y_true, y_pred, ...)
+      return orginal_function_from_confusion(cm, ...)
+
+  ```
+
+  Note: **fbeta_score**, **recall_score**, **precision_score** are just return values from **precision_recall_fscore_support**. It is sufficient to only implement **precision_recall_fscore_support_from_confusion** with above steps and let **fbeta_score_from_confusion**, **recall_score_from_confusion**, **precision_score_from_confusion** call **precision_recall_fscore_support_from_confusion** instead. It is similar for **f1_score** as it is a special case of **fbeta_score** when the value of beta is 1.
+
 - Implementation
 
   - Original Code
