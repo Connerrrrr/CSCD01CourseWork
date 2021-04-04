@@ -1308,6 +1308,8 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - Unit Test
 
+    Note: According to the hierarchy showed in the UML, test cases for **fbeta_score_from_confusion**, **f1_score_from_confusion**, **precision_score_from_confusion** and **recall_score_from_confusion** are all included in the test cases for **precision_recall_fscore_support_from_confusion**.
+
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/19679-UnitTest.png "Unit Test")
 
     - matthews_corrcoef_from_confusion
