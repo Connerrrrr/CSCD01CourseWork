@@ -1795,3 +1795,13 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
       ```
 
 ## Work Log
+
+Here is the screenshot of the work log before and after the scrum.
+
+Before Scrum:
+
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/jira-before.png "Before Scrum")
+
+After Scrum:
+
+![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/jira-after.png "After Scrum")
