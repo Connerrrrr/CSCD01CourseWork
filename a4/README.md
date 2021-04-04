@@ -653,42 +653,643 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
   - matthews_corrcoef_from_confusion
 
     ```python
+    def matthews_corrcoef_from_confusion(cm):
+    """Compute the Matthews correlation coefficient (MCC) from given confusion matrix.
+
+    Read more in matthews_corrcoef() below.
+
+    Parameters
+    ----------
+
+    cm : ndarray of shape (n_classes, n_classes)
+         Confusion matrix whose i-th row and j-th
+         column entry indicates the number of
+         samples with true label being i-th class
+         and predicted label being j-th class.
+
+    Returns
+    -------
+    mcc : float
+        The Matthews correlation coefficient (+1 represents a perfect
+        prediction, 0 an average random prediction and -1 and inverse
+        prediction).
+
+    Examples
+    --------
+    >>> from sklearn.metrics import matthews_corrcoef_from_confusion
+    >>> cm = [[0 1]
+              [1 2]]
+    >>> matthews_corrcoef_from_confusion(cm)
+    -0.33...
+    """
     ```
 
   - jaccard_score_from_confusion
 
     ```python
+    def jaccard_score_from_confusion(MCM, *, average='binary', sample_weight=None,
+                                 zero_division="warn"):
+    """Jaccard similarity coefficient score from given multilabel confusion matrix.
+
+    Read more in jaccard_score() below.
+
+    Note:
+        1. average='sample' can only be used when multilabel confusion matrix is calculated with
+           'samplewise' param is set to True.
+        2. For binary case, the provided confusion matrix is supposed to be corresponding
+           to the right class or sample, otherwise the score would be wrong.
+
+    Parameters
+    ----------
+    multi_confusion : ndarray of shape (n_outputs, 2, 2)
+        A 2x2 confusion matrix corresponding to each output in the input.
+        When calculating class-wise multi_confusion (default), then
+        n_outputs = n_labels; when calculating sample-wise multi_confusion
+        (samplewise=True), n_outputs = n_samples. If ``labels`` is defined,
+        the results will be returned in the order specified in ``labels``,
+        otherwise the results will be returned in sorted order by default.
+
+    average : {None, 'micro', 'macro', 'samples', 'weighted', \
+            'binary'}, default='binary'
+        If ``None``, the scores for each class are returned. Otherwise, this
+        determines the type of averaging performed on the data:
+
+        ``'binary'``:
+            Only report results for the class specified by ``pos_label``.
+            This is applicable only if targets (``y_{true,pred}``) are binary.
+        ``'micro'``:
+            Calculate metrics globally by counting the total true positives,
+            false negatives and false positives.
+        ``'macro'``:
+            Calculate metrics for each label, and find their unweighted
+            mean.  This does not take label imbalance into account.
+        ``'weighted'``:
+            Calculate metrics for each label, and find their average, weighted
+            by support (the number of true instances for each label). This
+            alters 'macro' to account for label imbalance.
+        ``'samples'``:
+            Calculate metrics for each instance, and find their average (only
+            meaningful for multilabel classification).
+        Note: 'sample' can only be used when multilabel confusion matrix is calculated with
+              'samplewise' param is set to True
+
+    sample_weight : array-like of shape (n_samples,), default=None
+        Sample weights.
+
+    zero_division : "warn", {0.0, 1.0}, default="warn"
+        Sets the value to return when there is a zero division, i.e. when there
+        there are no negative values in predictions and labels. If set to
+        "warn", this acts like 0, but a warning is also raised.
+
+    Returns
+    -------
+    score : float (if average is not None) or array of floats, shape =\
+            [n_unique_labels]
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from sklearn.metrics import jaccard_score_from_confusion
+    >>> y_true = np.array([[0, 1, 1],
+    ...                    [1, 1, 0]])
+    >>> y_pred = np.array([[1, 1, 1],
+    ...                    [1, 0, 0]])
+
+    In the binary case:
+
+    >>> MCM = multilabel_confusion_matrix(y_true[0], y_pred[0], labels=[1])
+    >>> jaccard_score_from_confusion(MCM)
+    0.6666...
+
+    In the multilabel case:
+
+    >>> MCM = multilabel_confusion_matrix(y_true, y_pred, samplewise=True)
+    >>> jaccard_score_from_confusion(MCM, average='samples')
+    0.5833...
+    >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+    >>> jaccard_score_from_confusion(MCM, average='macro')
+    0.6666...
+    >>> jaccard_score_from_confusion(MCM, average=None)
+    array([0.5, 0.5, 1. ])
+
+    In the multiclass case:
+
+    >>> y_pred = [0, 2, 1, 2]
+    >>> y_true = [0, 1, 2, 2]
+    >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+    >>> jaccard_score(MCM, average=None)
+    array([1. , 0. , 0.33...])
+    """
+
     ```
 
   - precision_recall_fscore_support_from_confusion
 
     ```python
-        
+    def precision_recall_fscore_support_from_confusion(MCM, *, beta=1.0, average=None,
+                                                   warn_for=('precision', 'recall',
+                                                             'f-score'),
+                                                   sample_weight=None,
+                                                   zero_division="warn"):
+    """Compute precision, recall, F-measure and support for each class from given multilabel confusion matrix.
+
+    Read more in precision_recall_fscore_support() below.
+
+    Note:
+        1. sample_weight='sample' can only be used when multilabel confusion matrix is calculated with
+           'samplewise' param is set to True.
+        2. For binary case, the provided confusion matrix is supposed to be corresponding
+           to the right class or sample, otherwise the score would be wrong.
+
+    Parameters
+    ----------
+    multi_confusion : ndarray of shape (n_outputs, 2, 2)
+        A 2x2 confusion matrix corresponding to each output in the input.
+        When calculating class-wise multi_confusion (default), then
+        n_outputs = n_labels; when calculating sample-wise multi_confusion
+        (samplewise=True), n_outputs = n_samples. If ``labels`` is defined,
+        the results will be returned in the order specified in ``labels``,
+        otherwise the results will be returned in sorted order by default.
+
+    beta : float, default=1.0
+        The strength of recall versus precision in the F-score.
+
+    average : {'binary', 'micro', 'macro', 'samples','weighted'}, \
+            default=None
+        If ``None``, the scores for each class are returned. Otherwise, this
+        determines the type of averaging performed on the data:
+
+        ``'binary'``:
+            Only report results for the class specified by ``pos_label``.
+            This is applicable only if targets (``y_{true,pred}``) are binary.
+        ``'micro'``:
+            Calculate metrics globally by counting the total true positives,
+            false negatives and false positives.
+        ``'macro'``:
+            Calculate metrics for each label, and find their unweighted
+            mean.  This does not take label imbalance into account.
+        ``'weighted'``:
+            Calculate metrics for each label, and find their average weighted
+            by support (the number of true instances for each label). This
+            alters 'macro' to account for label imbalance; it can result in an
+            F-score that is not between precision and recall.
+        ``'samples'``:
+            Calculate metrics for each instance, and find their average (only
+            meaningful for multilabel classification where this differs from
+            :func:`accuracy_score`).
+        Note: 'sample' can only be used when multilabel confusion matrix is calculated with
+              'samplewise' param is set to True.
+
+    warn_for : tuple or set, for internal use
+        This determines which warnings will be made in the case that this
+        function is being used to return only one of its metrics.
+
+    sample_weight : array-like of shape (n_samples,), default=None
+        Sample weights.
+
+    zero_division : "warn", 0 or 1, default="warn"
+        Sets the value to return when there is a zero division:
+           - recall: when there are no positive labels
+           - precision: when there are no positive predictions
+           - f-score: both
+
+        If set to "warn", this acts as 0, but warnings are also raised.
+
+    Returns
+    -------
+    precision : float (if average is not None) or array of float, shape =\
+        [n_unique_labels]
+
+    recall : float (if average is not None) or array of float, , shape =\
+        [n_unique_labels]
+
+    fbeta_score : float (if average is not None) or array of float, shape =\
+        [n_unique_labels]
+
+    support : None (if average is not None) or array of int, shape =\
+        [n_unique_labels]
+        The number of occurrences of each label in ``y_true``.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from sklearn.metrics import precision_recall_fscore_support_from_confusion
+    >>> y_true = np.array(['cat', 'dog', 'pig', 'cat', 'dog', 'pig'])
+    >>> y_pred = np.array(['cat', 'pig', 'dog', 'cat', 'cat', 'dog'])
+    >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+    >>> precision_recall_fscore_support_from_confusion(MCM, average='macro')
+    (0.22..., 0.33..., 0.26..., None)
+    >>> precision_recall_fscore_support_from_confusion(MCM, average='micro')
+    (0.33..., 0.33..., 0.33..., None)
+    >>> precision_recall_fscore_support_from_confusion(MCM, average='weighted')
+    (0.22..., 0.33..., 0.26..., None)
+
+    It is possible to compute per-label precisions, recalls, F1-scores and
+    supports instead of averaging:
+
+    # Labels' order are declared when contructing multilabel confusion matrix
+    >>> MCM = multilabel_confusion_matrix(y_true, y_pred, labels=['pig', 'dog', 'cat'])
+    >>> precision_recall_fscore_support_from_confusion(y_true, y_pred, average=None)
+    (array([0.        , 0.        , 0.66...]),
+     array([0., 0., 1.]), array([0. , 0. , 0.8]),
+     array([2, 2, 2]))
+    """
+
     ```
 
     - fbeta_score_from_confusion
 
       ```python
+      def fbeta_score_from_confusion(MCM, *, beta, average='binary',
+                               sample_weight=None, zero_division="warn"):
+      """Compute the F-beta score from the given multilabel confusion matrix.
+
+      Read more in fbeta_score() below.
+
+      Note:
+          1. average='sample' can only be used when multilabel confusion matrix is calculated with
+            'samplewise' param is set to True.
+          2. For binary case, the provided confusion matrix is supposed to be corresponding
+            to the right class or sample, otherwise the score would be wrong.
+
+      Parameters
+      ----------
+      multi_confusion : ndarray of shape (n_outputs, 2, 2)
+          A 2x2 confusion matrix corresponding to each output in the input.
+          When calculating class-wise multi_confusion (default), then
+          n_outputs = n_labels; when calculating sample-wise multi_confusion
+          (samplewise=True), n_outputs = n_samples. If ``labels`` is defined,
+          the results will be returned in the order specified in ``labels``,
+          otherwise the results will be returned in sorted order by default.
+
+      beta : float
+          Determines the weight of recall in the combined score.
+
+      average : {'micro', 'macro', 'samples', 'weighted', 'binary'} or None \
+              default='binary'
+          This parameter is required for multiclass/multilabel targets.
+          If ``None``, the scores for each class are returned. Otherwise, this
+          determines the type of averaging performed on the data:
+
+          ``'binary'``:
+              Only report results for the class specified by ``pos_label``.
+              This is applicable only if targets (``y_{true,pred}``) are binary.
+          ``'micro'``:
+              Calculate metrics globally by counting the total true positives,
+              false negatives and false positives.
+          ``'macro'``:
+              Calculate metrics for each label, and find their unweighted
+              mean.  This does not take label imbalance into account.
+          ``'weighted'``:
+              Calculate metrics for each label, and find their average weighted
+              by support (the number of true instances for each label). This
+              alters 'macro' to account for label imbalance; it can result in an
+              F-score that is not between precision and recall.
+          ``'samples'``:
+              Calculate metrics for each instance, and find their average (only
+              meaningful for multilabel classification where this differs from
+              :func:`accuracy_score`).
+          Note: 'sample' can only be used when multilabel confusion matrix is calculated with
+                'samplewise' param is set to True
+
+
+      sample_weight : array-like of shape (n_samples,), default=None
+          Sample weights.
+
+      zero_division : "warn", 0 or 1, default="warn"
+          Sets the value to return when there is a zero division, i.e. when all
+          predictions and labels are negative. If set to "warn", this acts as 0,
+          but warnings are also raised.
+
+      Returns
+      -------
+      fbeta_score : float (if average is not None) or array of float, shape =\
+          [n_unique_labels]
+          F-beta score of the positive class in binary classification or weighted
+          average of the F-beta score of each class for the multiclass task.
+
+      Examples
+      --------
+      >>> from sklearn.metrics import fbeta_score_from_confusion
+      >>> y_true = [0, 1, 2, 0, 1, 2]
+      >>> y_pred = [0, 2, 1, 0, 0, 1]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> fbeta_score_from_confusion(MCM, average='macro', beta=0.5)
+      0.23...
+      >>> fbeta_score_from_confusion(MCM, average='micro', beta=0.5)
+      0.33...
+      >>> fbeta_score_from_confusion(MCM, average='weighted', beta=0.5)
+      0.23...
+      >>> fbeta_score_from_confusion(MCM, average=None, beta=0.5)
+      array([0.71..., 0.        , 0.        ])
+      """
       ```
 
     - f1_score_from_confusion
 
       ```python
+      def f1_score_from_confusion(MCM, *, average='binary', sample_weight=None,
+                               zero_division="warn"):
+      """Compute the F1 score from the given multilabel confusion matrix, also known as balanced F-score or F-measure.
+
+      Read more in f1_score() below.
+
+      Note:
+          1. average='sample' can only be used when multilabel confusion matrix is calculated with
+            'samplewise' param is set to True.
+          2. For binary case, the provided confusion matrix is supposed to be corresponding
+            to the right class or sample, otherwise the score would be wrong.
+
+      Parameters
+      ----------
+      multi_confusion : ndarray of shape (n_outputs, 2, 2)
+          A 2x2 confusion matrix corresponding to each output in the input.
+          When calculating class-wise multi_confusion (default), then
+          n_outputs = n_labels; when calculating sample-wise multi_confusion
+          (samplewise=True), n_outputs = n_samples. If ``labels`` is defined,
+          the results will be returned in the order specified in ``labels``,
+          otherwise the results will be returned in sorted order by default.
+
+      average : {'micro', 'macro', 'samples','weighted', 'binary'} or None, \
+              default='binary'
+          This parameter is required for multiclass/multilabel targets.
+          If ``None``, the scores for each class are returned. Otherwise, this
+          determines the type of averaging performed on the data:
+
+          ``'binary'``:
+              Only report results for the class specified by ``pos_label``.
+              This is applicable only if targets (``y_{true,pred}``) are binary.
+          ``'micro'``:
+              Calculate metrics globally by counting the total true positives,
+              false negatives and false positives.
+          ``'macro'``:
+              Calculate metrics for each label, and find their unweighted
+              mean.  This does not take label imbalance into account.
+          ``'weighted'``:
+              Calculate metrics for each label, and find their average weighted
+              by support (the number of true instances for each label). This
+              alters 'macro' to account for label imbalance; it can result in an
+              F-score that is not between precision and recall.
+          ``'samples'``:
+              Calculate metrics for each instance, and find their average (only
+              meaningful for multilabel classification where this differs from
+              :func:`accuracy_score`).
+          Note: 'sample' can only be used when multilabel confusion matrix is calculated with
+                'samplewise' param is set to True
+
+      sample_weight : array-like of shape (n_samples,), default=None
+          Sample weights.
+
+      zero_division : "warn", 0 or 1, default="warn"
+          Sets the value to return when there is a zero division, i.e. when all
+          predictions and labels are negative. If set to "warn", this acts as 0,
+          but warnings are also raised.
+
+      Returns
+      -------
+      f1_score : float or array of float, shape = [n_unique_labels]
+          F1 score of the positive class in binary classification or weighted
+          average of the F1 scores of each class for the multiclass task.
+
+      Examples
+      --------
+      >>> from sklearn.metrics import f1_score_from_confusion
+      >>> y_true = [0, 1, 2, 0, 1, 2]
+      >>> y_pred = [0, 2, 1, 0, 0, 1]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> f1_score_from_confusion(MCM, average='macro')
+      0.26...
+      >>> f1_score_from_confusion(MCM, average='micro')
+      0.33...
+      >>> f1_score_from_confusion(MCM, average='weighted')
+      0.26...
+      >>> f1_score_from_confusion(MCM, average=None)
+      array([0.8, 0. , 0. ])
+      >>> y_true = [0, 0, 0, 0, 0, 0]
+      >>> y_pred = [0, 0, 0, 0, 0, 0]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> f1_score_from_confusion(MCM, zero_division=1)
+      1.0...
+      """
+
       ```
 
     - precision_score_from_confusion
 
       ```python
+      def precision_score_from_confusion(MCM, average='binary', sample_weight=None,
+                                   zero_division="warn"):
+      """Compute the precision from the given multilabel confusion matrix.
+
+      Read more in precision_score() below.
+
+      Note:
+          1. sample_weight='sample' can only be used when multilabel confusion matrix is calculated with
+            'samplewise' param is set to True.
+          2. For binary case, the provided confusion matrix is supposed to be corresponding
+            to the right class or sample, otherwise the score would be wrong.
+
+      Parameters
+      ----------
+      multi_confusion : ndarray of shape (n_outputs, 2, 2)
+          A 2x2 confusion matrix corresponding to each output in the input.
+          When calculating class-wise multi_confusion (default), then
+          n_outputs = n_labels; when calculating sample-wise multi_confusion
+          (samplewise=True), n_outputs = n_samples. If ``labels`` is defined,
+          the results will be returned in the order specified in ``labels``,
+          otherwise the results will be returned in sorted order by default.
+
+      average : {'micro', 'macro', 'samples', 'weighted', 'binary'} \
+              default='binary'
+          This parameter is required for multiclass/multilabel targets.
+          If ``None``, the scores for each class are returned. Otherwise, this
+          determines the type of averaging performed on the data:
+
+          ``'binary'``:
+              Only report results for the class specified by ``pos_label``.
+              This is applicable only if targets (``y_{true,pred}``) are binary.
+          ``'micro'``:
+              Calculate metrics globally by counting the total true positives,
+              false negatives and false positives.
+          ``'macro'``:
+              Calculate metrics for each label, and find their unweighted
+              mean.  This does not take label imbalance into account.
+          ``'weighted'``:
+              Calculate metrics for each label, and find their average weighted
+              by support (the number of true instances for each label). This
+              alters 'macro' to account for label imbalance; it can result in an
+              F-score that is not between precision and recall.
+          ``'samples'``:
+              Calculate metrics for each instance, and find their average (only
+              meaningful for multilabel classification where this differs from
+              :func:`accuracy_score`).
+          Note: 'sample' can only be used when multilabel confusion matrix is calculated with
+                'samplewise' param is set to True.
+
+      sample_weight : array-like of shape (n_samples,), default=None
+          Sample weights.
+
+      zero_division : "warn", 0 or 1, default="warn"
+          Sets the value to return when there is a zero division. If set to
+          "warn", this acts as 0, but warnings are also raised.
+
+      Returns
+      -------
+      precision : float (if average is not None) or array of float of shape
+          (n_unique_labels,)
+          Precision of the positive class in binary classification or weighted
+          average of the precision of each class for the multiclass task.
+
+      Examples
+      --------
+      >>> from sklearn.metrics import precision_score_from_confusion
+      >>> y_true = [0, 1, 2, 0, 1, 2]
+      >>> y_pred = [0, 2, 1, 0, 0, 1]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> precision_score_from_confusion(MCM, average='macro')
+      0.22...
+      >>> precision_score_from_confusion(MCM, average='micro')
+      0.33...
+      >>> precision_score_from_confusion(MCM, average='weighted')
+      0.22...
+      >>> precision_score_from_confusion(MCM, average=None)
+      array([0.66..., 0.        , 0.        ])
+      >>> y_pred = [0, 0, 0, 0, 0, 0]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> precision_score_from_confusion(MCM, average=None)
+      array([0.33..., 0.        , 0.        ])
+      >>> precision_score_from_confusion(MCM, average=None, zero_division=1)
+      array([0.33..., 1.        , 1.        ])
+
+      """
       ```
 
     - recall_score_from_confusion
 
       ```python
+      def recall_score_from_confusion(MCM, average='binary', sample_weight=None,
+                                zero_division="warn"):
+      """Compute the recall from the given multilabel confusion matrix.
+
+      Read more in recall_score() below.
+
+      Note:
+          1. sample_weight='sample' can only be used when multilabel confusion matrix is calculated with
+            'samplewise' param is set to True.
+          2. For binary case, the provided confusion matrix is supposed to be corresponding
+            to the right class or sample, otherwise the score would be wrong.
+
+      Parameters
+      ----------
+      multi_confusion : ndarray of shape (n_outputs, 2, 2)
+          A 2x2 confusion matrix corresponding to each output in the input.
+          When calculating class-wise multi_confusion (default), then
+          n_outputs = n_labels; when calculating sample-wise multi_confusion
+          (samplewise=True), n_outputs = n_samples. If ``labels`` is defined,
+          the results will be returned in the order specified in ``labels``,
+          otherwise the results will be returned in sorted order by default.
+
+      average : {'micro', 'macro', 'samples', 'weighted', 'binary'} \
+              default='binary'
+          This parameter is required for multiclass/multilabel targets.
+          If ``None``, the scores for each class are returned. Otherwise, this
+          determines the type of averaging performed on the data:
+
+          ``'binary'``:
+              Only report results for the class specified by ``pos_label``.
+              This is applicable only if targets (``y_{true,pred}``) are binary.
+          ``'micro'``:
+              Calculate metrics globally by counting the total true positives,
+              false negatives and false positives.
+          ``'macro'``:
+              Calculate metrics for each label, and find their unweighted
+              mean.  This does not take label imbalance into account.
+          ``'weighted'``:
+              Calculate metrics for each label, and find their average weighted
+              by support (the number of true instances for each label). This
+              alters 'macro' to account for label imbalance; it can result in an
+              F-score that is not between precision and recall.
+          ``'samples'``:
+              Calculate metrics for each instance, and find their average (only
+              meaningful for multilabel classification where this differs from
+              :func:`accuracy_score`).
+          Note: 'sample' can only be used when multilabel confusion matrix is calculated with
+                'samplewise' param is set to True.
+
+      sample_weight : array-like of shape (n_samples,), default=None
+          Sample weights.
+
+      zero_division : "warn", 0 or 1, default="warn"
+          Sets the value to return when there is a zero division. If set to
+          "warn", this acts as 0, but warnings are also raised.
+
+      Returns
+      -------
+      Returns
+      -------
+      recall : float (if average is not None) or array of float of shape
+          (n_unique_labels,)
+          Recall of the positive class in binary classification or weighted
+          average of the recall of each class for the multiclass task.
+
+      Examples
+      --------
+      >>> from sklearn.metrics import recall_score_from_confusion
+      >>> y_true = [0, 1, 2, 0, 1, 2]
+      >>> y_pred = [0, 2, 1, 0, 0, 1]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> recall_score_from_confusion(MCM, average='macro')
+      0.33...
+      >>> recall_score_from_confusion(MCM, average='micro')
+      0.33...
+      >>> recall_score_from_confusion(MCM, average='weighted')
+      0.33...
+      >>> recall_score_from_confusion(MCM, average=None)
+      array([1., 0., 0.])
+      >>> y_true = [0, 0, 0, 0, 0, 0]
+      >>> MCM = multilabel_confusion_matrix(y_true, y_pred)
+      >>> recall_score_from_confusion(MCM, average=None)
+      array([0.5, 0. , 0. ])
+      >>> recall_score_from_confusion(MCM, average=None, zero_division=1)
+      array([0.5, 1. , 1. ])
+      """
       ```
 
   - balanced_accuracy_score_from_confusion
 
     ```python
+    def balanced_accuracy_score_from_confusion(cm, *, adjusted=False):
+    """Compute the balanced accuracy from given confusion matrix.
+
+    Read more in balanced_accuracy_score() below.
+
+    Parameters
+    ----------
+    cm : ndarray of shape (n_classes, n_classes)
+         Confusion matrix whose i-th row and j-th
+         column entry indicates the number of
+         samples with true label being i-th class
+         and predicted label being j-th class.
+
+    adjusted : bool, default=False
+        When true, the result is adjusted for chance, so that random
+        performance would score 0, while keeping perfect performance at a score
+        of 1.
+
+    Returns
+    -------
+    balanced_accuracy : float
+
+    Examples
+    --------
+    >>> from sklearn.metrics import balanced_accuracy_score_from_confusion
+    >>> y_true = [0, 1, 0, 0, 1, 0]
+    >>> y_pred = [0, 1, 0, 0, 0, 1]
+    >>> cm = confusion_matrix(y_true, y_pred)
+    >>> balanced_accuracy_score_from_confusion(y_true, y_pred)
+    0.625
+
+    """
     ```
 
 - Testing
