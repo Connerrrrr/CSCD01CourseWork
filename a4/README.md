@@ -432,48 +432,264 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - New Code Blocks
 
-    - matthews_corrcoef
+    - matthews_corrcoef_from_confusion
 
       ```python
+      @_deprecate_positional_args
+      def matthews_corrcoef_from_confusion(cm):
+
+          t_sum = cm.sum(axis=1, dtype=np.float64)
+          p_sum = cm.sum(axis=0, dtype=np.float64)
+          n_correct = np.trace(cm, dtype=np.float64)
+          n_samples = p_sum.sum()
+          cov_ytyp = n_correct * n_samples - np.dot(t_sum, p_sum)
+          cov_ypyp = n_samples ** 2 - np.dot(p_sum, p_sum)
+          cov_ytyt = n_samples ** 2 - np.dot(t_sum, t_sum)
+          mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+          if np.isnan(mcc):
+              return 0.
+          else:
+              return mcc
       ```
 
-    - jaccard_score
+    - jaccard_score_from_confusion
 
       ```python
+      @_deprecate_positional_args
+      def jaccard_score_from_confusion(MCM, *, average='binary', sample_weight=None,
+                                      zero_division="warn"):
+
+          numerator = MCM[:, 1, 1]
+          denominator = MCM[:, 1, 1] + MCM[:, 0, 1] + MCM[:, 1, 0]
+
+          if average == 'micro':
+              numerator = np.array([numerator.sum()])
+              denominator = np.array([denominator.sum()])
+
+          jaccard = _prf_divide(numerator, denominator, 'jaccard',
+                                'true or predicted', average, ('jaccard',),
+                                zero_division=zero_division)
+          if average is None:
+              return jaccard
+          if average == 'weighted':
+              weights = MCM[:, 1, 0] + MCM[:, 1, 1]
+              if not np.any(weights):
+                  # numerator is 0, and warning should have already been issued
+                  weights = None
+          elif average == 'samples' and sample_weight is not None:
+              weights = sample_weight
+          else:
+              weights = None
+          return np.average(jaccard, weights=weights)
+
+
       ```
 
-    - precision_recall_fscore_support
+    - precision_recall_fscore_support_from_confusion
 
       ```python
-        
+      @_deprecate_positional_args
+      def precision_recall_fscore_support_from_confusion(MCM, *, beta=1.0, average=None,
+                                                         warn_for=('precision', 'recall',
+                                                                   'f-score'),
+                                                         sample_weight=None,
+                                                         zero_division="warn"):
+
+          tp_sum = MCM[:, 1, 1]
+          pred_sum = tp_sum + MCM[:, 0, 1]
+          true_sum = tp_sum + MCM[:, 1, 0]
+
+          if average == 'micro':
+              tp_sum = np.array([tp_sum.sum()])
+              pred_sum = np.array([pred_sum.sum()])
+              true_sum = np.array([true_sum.sum()])
+
+          # Finally, we have all our sufficient statistics. Divide! #
+          beta2 = beta ** 2
+
+          # Divide, and on zero-division, set scores and/or warn according to
+          # zero_division:
+          precision = _prf_divide(tp_sum, pred_sum, 'precision',
+                                  'predicted', average, warn_for, zero_division)
+          recall = _prf_divide(tp_sum, true_sum, 'recall',
+                              'true', average, warn_for, zero_division)
+
+          # warn for f-score only if zero_division is warn, it is in warn_for
+          # and BOTH prec and rec are ill-defined
+          if zero_division == "warn" and ("f-score",) == warn_for:
+              if (pred_sum[true_sum == 0] == 0).any():
+                  _warn_prf(
+                      average, "true nor predicted", 'F-score is', len(true_sum)
+                  )
+
+          # if tp == 0 F will be 1 only if all predictions are zero, all labels are
+          # zero, and zero_division=1. In all other case, 0
+          if np.isposinf(beta):
+              f_score = recall
+          else:
+              denom = beta2 * precision + recall
+
+              denom[denom == 0.] = 1  # avoid division by 0
+              f_score = (1 + beta2) * precision * recall / denom
+
+          # Average the results
+          if average == 'weighted':
+              weights = true_sum
+              if weights.sum() == 0:
+                  zero_division_value = np.float64(1.0)
+                  if zero_division in ["warn", 0]:
+                      zero_division_value = np.float64(0.0)
+                  # precision is zero_division if there are no positive predictions
+                  # recall is zero_division if there are no positive labels
+                  # fscore is zero_division if all labels AND predictions are
+                  # negative
+                  if pred_sum.sum() == 0:
+                      return (zero_division_value,
+                              zero_division_value,
+                              zero_division_value,
+                              None)
+                  else:
+                      return (np.float64(0.0),
+                              zero_division_value,
+                              np.float64(0.0),
+                              None)
+
+          elif average == 'samples':
+              weights = sample_weight
+          else:
+              weights = None
+
+          if average is not None:
+              assert average != 'binary' or len(precision) == 1
+              precision = np.average(precision, weights=weights)
+              recall = np.average(recall, weights=weights)
+              f_score = np.average(f_score, weights=weights)
+              true_sum = None  # return no support
+
+          return precision, recall, f_score, true_sum
       ```
 
-      - fbeta_score
+      - fbeta_score_from_confusion
 
         ```python
+        @_deprecate_positional_args
+        def fbeta_score_from_confusion(MCM, *, beta, average='binary',
+                                      sample_weight=None, zero_division="warn"):
+
+            _, _, f, _ = precision_recall_fscore_support_from_confusion(MCM,
+                                                                        beta=beta,
+                                                                        average=average,
+                                                                        warn_for=('f-score',),
+                                                                        sample_weight=sample_weight,
+                                                                        zero_division=zero_division)
+            return f
         ```
 
-      - f1_score
+      - f1_score_from_confusion
 
         ```python
+        @_deprecate_positional_args
+        def f1_score_from_confusion(MCM, *, average='binary', sample_weight=None,
+                               zero_division="warn"):
+
+        return fbeta_score_from_confusion(MCM, beta=1, average=average,
+                                          sample_weight=sample_weight,
+                                          zero_division=zero_division)
         ```
 
-      - precision_score
+      - precision_score_from_confusion
 
         ```python
+        @_deprecate_positional_args
+        def precision_score_from_confusion(MCM, average='binary', sample_weight=None,
+                                          zero_division="warn"):
+
+            p, _, _, _ = precision_recall_fscore_support_from_confusion(MCM,
+                                                                        average=average,
+                                                                        warn_for=('precision',),
+                                                                        sample_weight=sample_weight,
+                                                                        zero_division=zero_division)
+            return p
         ```
 
-      - recall_score
+      - recall_score_from_confusion
 
         ```python
+        @_deprecate_positional_args
+        def recall_score_from_confusion(MCM, average='binary', sample_weight=None,
+                                        zero_division="warn"):
+
+            _, r, _, _ = precision_recall_fscore_support_from_confusion(MCM,
+                                                                        average=average,
+                                                                        warn_for=('recall',),
+                                                                        sample_weight=sample_weight,
+                                                                        zero_division=zero_division)
+            return r
         ```
 
-    - balanced_accuracy_score
+    - balanced_accuracy_score_from_confusion
 
       ```python
+      @_deprecate_positional_args
+      def balanced_accuracy_score_from_confusion(cm, *, adjusted=False):
+
+          with np.errstate(divide='ignore', invalid='ignore'):
+              per_class = np.diag(cm) / cm.sum(axis=1)
+          if np.any(np.isnan(per_class)):
+              warnings.warn('y_pred contains classes not in y_true')
+              per_class = per_class[~np.isnan(per_class)]
+          score = np.mean(per_class)
+          if adjusted:
+              n_classes = len(per_class)
+              chance = 1 / n_classes
+              score -= chance
+              score /= 1 - chance
+          return score
       ```
 
 - User Guide
+
+  - matthews_corrcoef_from_confusion
+
+    ```python
+    ```
+
+  - jaccard_score_from_confusion
+
+    ```python
+    ```
+
+  - precision_recall_fscore_support_from_confusion
+
+    ```python
+        
+    ```
+
+    - fbeta_score_from_confusion
+
+      ```python
+      ```
+
+    - f1_score_from_confusion
+
+      ```python
+      ```
+
+    - precision_score_from_confusion
+
+      ```python
+      ```
+
+    - recall_score_from_confusion
+
+      ```python
+      ```
+
+  - balanced_accuracy_score_from_confusion
+
+    ```python
+    ```
 
 - Testing
 
