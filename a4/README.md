@@ -1308,4 +1308,426 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - Unit Test
 
+    - matthews_corrcoef_from_confusion
+
+      ```python
+      @ignore_warnings
+      def test_matthews_corrcoef_from_confusion_nan():
+          C1 = confusion_matrix([0], [1], sample_weight=None)
+          C2 = confusion_matrix([0, 0], [0, 1], sample_weight=None)
+          assert matthews_corrcoef_from_confusion(C1) == 0.0
+          assert matthews_corrcoef_from_confusion(C2) == 0.0
+      
+      def test_matthews_corrcoef_from_confusion():
+          rng = np.random.RandomState(0)
+          y_true = ["a" if i == 0 else "b" for i in rng.randint(0, 2, size=20)]
+
+          # corrcoef of same vectors must be 1
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_true)), 1.0)
+
+          # corrcoef, when the two vectors are opposites of each other, should be -1
+          y_true_inv = ["b" if i == "a" else "a" for i in y_true]
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_true_inv)), -1)
+
+          y_true_inv2 = label_binarize(y_true, classes=["a", "b"])
+          y_true_inv2 = np.where(y_true_inv2, 'a', 'b')
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_true_inv2)), -1)
+
+          # For the zero vector case, the corrcoef cannot be calculated and should
+          # result in a RuntimeWarning
+          mcc = assert_warns_div0(matthews_corrcoef_from_confusion, confusion_matrix([0,0,0,0], [0,0,0,0]))
+
+          # But will output 0
+          assert_almost_equal(mcc, 0.)
+
+          # And also for any other vector with 0 variance
+          mcc = assert_warns_div0(matthews_corrcoef_from_confusion, confusion_matrix(y_true, ['a'] * len(y_true)))
+
+          # But will output 0
+          assert_almost_equal(mcc, 0.)
+
+          # These two vectors have 0 correlation and hence mcc should be 0
+          y_1 = [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1]
+          y_2 = [1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1]
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_1, y_2)), 0.)
+
+          # Check that sample weight is able to selectively exclude
+          mask = [1] * 10 + [0] * 10
+          # Now the first half of the vector elements are alone given a weight of 1
+          # and hence the mcc will not be a perfect 0 as in the previous case
+          with pytest.raises(AssertionError):
+              assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_1, y_2,
+                                                    sample_weight=mask)), 0.)
+
+      def test_matthews_corrcoef_from_confusion_multiclass():
+          rng = np.random.RandomState(0)
+          ord_a = ord('a')
+          n_classes = 4
+          y_true = [chr(ord_a + i) for i in rng.randint(0, n_classes, size=20)]
+
+          # corrcoef of same vectors must be 1
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_true)), 1.0)
+
+          # with multiclass > 2 it is not possible to achieve -1
+          y_true = [0, 0, 1, 1, 2, 2]
+          y_pred_bad = [2, 2, 0, 0, 1, 1]
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_pred_bad)), -.5)
+
+          # Maximizing false positives and negatives minimizes the MCC
+          # The minimum will be different for depending on the input
+          y_true = [0, 0, 1, 1, 2, 2]
+          y_pred_min = [1, 1, 0, 0, 0, 0]
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_pred_min)),
+                              -12 / np.sqrt(24 * 16))
+
+          # Zero variance will result in an mcc of zero and a Runtime Warning
+          y_true = [0, 1, 2]
+          y_pred = [3, 3, 3]
+          mcc = assert_warns_message(RuntimeWarning, 'invalid value encountered',
+                                    matthews_corrcoef_from_confusion, confusion_matrix(y_true, y_pred))
+          assert_almost_equal(mcc, 0.0)
+
+          # These two vectors have 0 correlation and hence mcc should be 0
+          y_1 = [0, 1, 2, 0, 1, 2, 0, 1, 2]
+          y_2 = [1, 1, 1, 2, 2, 2, 0, 0, 0]
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_1, y_2)), 0.)
+
+          # We can test that binary assumptions hold using the multiclass computation
+          # by masking the weight of samples not in the first two classes
+
+          # Masking the last label should let us get an MCC of -1
+          y_true = [0, 0, 1, 1, 2]
+          y_pred = [1, 1, 0, 0, 2]
+          sample_weight = [1, 1, 1, 1, 0]
+          assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_true, y_pred,
+                                                sample_weight=sample_weight)), -1)
+
+          # For the zero vector case, the corrcoef cannot be calculated and should
+          # result in a RuntimeWarning
+          y_true = [0, 0, 1, 2]
+          y_pred = [0, 0, 1, 2]
+          sample_weight = [1, 1, 0, 0]
+          mcc = assert_warns_message(RuntimeWarning, 'invalid value encountered',
+                                    matthews_corrcoef_from_confusion, confusion_matrix(y_true, y_pred,
+                                              sample_weight=sample_weight))
+
+          # But will output 0
+          assert_almost_equal(mcc, 0.)
+
+      ```
+
+    - jaccard_score_from_confusion
+
+      ```python
+      def test_multilabel_jaccard_score_from_confusion(recwarn):
+          # multilabel case
+          y1 = np.array([[0, 1, 1], [1, 0, 1]])
+          y2 = np.array([[0, 0, 1], [1, 0, 1]])
+          MCM1 = multilabel_confusion_matrix(y1, y2, samplewise=True)
+          MCM2 = multilabel_confusion_matrix(y1, y1, samplewise=True)
+          MCM3 = multilabel_confusion_matrix(y2, y2, samplewise=True)
+          assert jaccard_score_from_confusion(MCM1, average='samples') == 0.75
+          assert jaccard_score_from_confusion(MCM2, average='samples') == 1
+          assert jaccard_score_from_confusion(MCM3, average='samples') == 1
+
+          y_true = np.array([[0, 1, 1], [1, 0, 0]])
+          y_pred = np.array([[1, 1, 1], [1, 0, 1]])
+
+          # average='samples'
+          MCM = multilabel_confusion_matrix(y_true, y_pred, samplewise=True)
+          assert_almost_equal(jaccard_score_from_confusion(MCM, average='samples'),
+                              7. / 12)
+      
+      def test_average_binary_jaccard_score_from_confusion(recwarn):
+          # tp=0, fp=0, fn=1, tn=0
+          MCM = multilabel_confusion_matrix([1], [0])
+          assert jaccard_score_from_confusion(MCM, average='binary') == 0.
+          y_true = np.array([1, 0, 1, 1, 0])
+          y_pred = np.array([1, 0, 1, 1, 1])
+          MCM = multilabel_confusion_matrix(y_true, y_pred, labels=[1])
+          assert_almost_equal(jaccard_score_from_confusion(MCM,
+                                            average='binary'), 3. / 4)
+
+          assert not list(recwarn)
+      
+      def test_jaccard_score_from_division_zero_division_warning():
+          # check that we raised a warning with default behavior if a zero division
+          # happens
+          y_true = np.array([[1, 0, 1], [0, 0, 0]])
+          y_pred = np.array([[0, 0, 0], [0, 0, 0]])
+          msg = ('Jaccard is ill-defined and being set to 0.0 in '
+                'samples with no true or predicted labels.'
+                ' Use `zero_division` parameter to control this behavior.')
+          with pytest.warns(UndefinedMetricWarning, match=msg):
+              score = jaccard_score_from_confusion(
+                  multilabel_confusion_matrix(y_true, y_pred), average='samples', zero_division='warn'
+              )
+              assert score == pytest.approx(0.0)
+      
+      @pytest.mark.parametrize(
+          "zero_division, expected_score", [(0, 0), (1, 0.5)]
+      )
+      def test_jaccard_score_from_confusion_zero_division_set_value(zero_division, expected_score):
+          # check that we don't issue warning by passing the zero_division parameter
+          y_true = np.array([[1, 0, 1], [0, 0, 0]])
+          y_pred = np.array([[0, 0, 0], [0, 0, 0]])
+          with pytest.warns(None) as record:
+              score = jaccard_score_from_confusion(
+                  multilabel_confusion_matrix(y_true, y_pred, samplewise=True), average="samples", zero_division=zero_division
+              )
+          assert score == pytest.approx(expected_score)
+          assert len(record) == 0
+      ```
+
+    - precision_recall_fscore_support_from_confusion
+
+      ```python
+      def test_precision_recall_f1_score_from_confusion_binary():
+          # Test Precision Recall and F1 Score for binary classification task
+          y_true, y_pred, _ = make_prediction(binary=True)
+
+          # detailed measures for each class
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred), average=None)
+          assert_array_almost_equal(p, [0.73, 0.85], 2)
+          assert_array_almost_equal(r, [0.88, 0.68], 2)
+          assert_array_almost_equal(f, [0.80, 0.76], 2)
+          assert_array_equal(s, [25, 25])
+
+      def test_precision_recall_f1_score_from_confusion_multiclass():
+          # Test Precision Recall and F1 Score for multiclass classification task
+          y_true, y_pred, _ = make_prediction(binary=False)
+
+          # compute scores with default labels introspection
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred), average=None)
+          assert_array_almost_equal(p, [0.83, 0.33, 0.42], 2)
+          assert_array_almost_equal(r, [0.79, 0.09, 0.90], 2)
+          assert_array_almost_equal(f, [0.81, 0.15, 0.57], 2)
+          assert_array_equal(s, [24, 31, 20])
+
+          # same prediction but with and explicit label ordering
+          p, r, f, s = precision_recall_fscore_support_from_confusion(
+              multilabel_confusion_matrix(y_true, y_pred, labels=[0, 2, 1]), average=None)
+          assert_array_almost_equal(p, [0.83, 0.41, 0.33], 2)
+          assert_array_almost_equal(r, [0.79, 0.90, 0.10], 2)
+          assert_array_almost_equal(f, [0.81, 0.57, 0.15], 2)
+          assert_array_equal(s, [24, 20, 31])
+
+      @pytest.mark.parametrize('average',
+                         ['samples', 'micro', 'macro', 'weighted', None])
+      def test_precision_refcall_f1_score_from_confusion_multilabel_unordered_labels(average):
+          # test that labels need not be sorted in the multilabel case
+          y_true = np.array([[1, 1, 0, 0]])
+          y_pred = np.array([[0, 0, 1, 1]])
+          p, r, f, s = precision_recall_fscore_support_from_confusion(
+              multilabel_confusion_matrix(y_true, y_pred, labels=[3, 0, 1, 2]), warn_for=[], average=average)
+          assert_array_equal(p, 0)
+          assert_array_equal(r, 0)
+          assert_array_equal(f, 0)
+          if average is None:
+              assert_array_equal(s, [0, 1, 1, 0])
+      
+      def test_precision_recall_f1_score_from_confusion_binary_averaged():
+          y_true = np.array([0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1])
+          y_pred = np.array([1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1])
+
+          # compute scores with default labels introspection
+          ps, rs, fs, _ = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                          average=None)
+          p, r, f, _ = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average='macro')
+          assert p == np.mean(ps)
+          assert r == np.mean(rs)
+          assert f == np.mean(fs)
+          p, r, f, _ = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average='weighted')
+          support = np.bincount(y_true)
+          assert p == np.average(ps, weights=support)
+          assert r == np.average(rs, weights=support)
+          assert f == np.average(fs, weights=support)
+
+      @ignore_warnings
+      def test_precision_recall_f1_score_from_confusion_multilabel_1():
+          # Test precision_recall_f1_score on a crafted multilabel example
+          # First crafted example
+
+          y_true = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 1]])
+          y_pred = np.array([[0, 1, 0, 0], [0, 1, 0, 0], [1, 0, 1, 0]])
+
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred), average=None)
+
+          # Check per class
+
+          assert_array_almost_equal(p, [0.0, 0.5, 1.0, 0.0], 2)
+          assert_array_almost_equal(r, [0.0, 1.0, 1.0, 0.0], 2)
+          assert_array_almost_equal(f, [0.0, 1 / 1.5, 1, 0.0], 2)
+          assert_array_almost_equal(s, [1, 1, 1, 1], 2)
+
+          # Check macro
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average="macro")
+          assert_almost_equal(p, 1.5 / 4)
+          assert_almost_equal(r, 0.5)
+          assert_almost_equal(f, 2.5 / 1.5 * 0.25)
+          assert s is None
+
+          # Check micro
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average="micro")
+          assert_almost_equal(p, 0.5)
+          assert_almost_equal(r, 0.5)
+          assert_almost_equal(f, 0.5)
+          assert s is None
+
+          # Check weighted
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average="weighted")
+          assert_almost_equal(p, 1.5 / 4)
+          assert_almost_equal(r, 0.5)
+          assert_almost_equal(f, 2.5 / 1.5 * 0.25)
+          assert s is None
+
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred, samplewise=True),
+                                                      average="samples")
+          assert_almost_equal(p, 0.5)
+          assert_almost_equal(r, 0.5)
+          assert_almost_equal(f, 0.5)
+          assert s is None
+
+      @ignore_warnings
+      @pytest.mark.parametrize('zero_division', ["warn", 0, 1])
+      def test_precision_recall_f1_score_from_confusion_with_an_empty_prediction(zero_division):
+          y_true = np.array([[0, 1, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0]])
+          y_pred = np.array([[0, 0, 0, 0], [0, 0, 0, 1], [0, 1, 1, 0]])
+
+          zero_division = 1.0 if zero_division == 1.0 else 0.0
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average=None,
+                                                      zero_division=zero_division)
+          assert_array_almost_equal(p, [zero_division, 1.0, 1.0, 0.0], 2)
+          assert_array_almost_equal(r, [0.0, 0.5, 1.0, zero_division], 2)
+          assert_array_almost_equal(f, [0.0, 1 / 1.5, 1, 0.0], 2)
+          assert_array_almost_equal(s, [1, 2, 1, 0], 2)
+
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average="macro",
+                                                      zero_division=zero_division)
+          assert_almost_equal(p, (2 + zero_division) / 4)
+          assert_almost_equal(r, (1.5 + zero_division) / 4)
+          assert_almost_equal(f, 2.5 / (4 * 1.5))
+          assert s is None
+
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average="micro",
+                                                      zero_division=zero_division)
+          assert_almost_equal(p, 2 / 3)
+          assert_almost_equal(r, 0.5)
+          assert_almost_equal(f, 2 / 3 / (2 / 3 + 0.5))
+          assert s is None
+
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred),
+                                                      average="weighted",
+                                                      zero_division=zero_division)
+          assert_almost_equal(p, 3 / 4 if zero_division == 0 else 1.0)
+          assert_almost_equal(r, 0.5)
+          assert_almost_equal(f, (2 / 1.5 + 1) / 4)
+          assert s is None
+
+          p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred, samplewise=True),
+                                                      average="samples")
+
+          assert_almost_equal(p, 1 / 3)
+          assert_almost_equal(r, 1 / 3)
+          assert_almost_equal(f, 1 / 3)
+          assert s is None
+
+      @pytest.mark.parametrize('beta', [1])
+      @pytest.mark.parametrize('average', ["macro", "micro", "weighted", "samples"])
+      @pytest.mark.parametrize('zero_division', [0, 1])
+      def test_precision_recall_f1_from_confusion_no_labels(beta, average, zero_division):
+          y_true = np.zeros((20, 3))
+          y_pred = np.zeros_like(y_true)
+
+          p, r, f, s = assert_no_warnings(precision_recall_fscore_support_from_confusion, multilabel_confusion_matrix(y_true, y_pred), average=average, beta=beta,
+                                          zero_division=zero_division)
+
+          zero_division = float(zero_division)
+          assert_almost_equal(p, zero_division)
+          assert_almost_equal(r, zero_division)
+          assert_almost_equal(f, zero_division)
+          assert s is None
+      
+      @pytest.mark.parametrize('average', ["macro", "micro", "weighted", "samples"])
+      def test_precision_recall_f1_from_confusion_no_labels_check_warnings(average):
+          y_true = np.zeros((20, 3))
+          y_pred = np.zeros_like(y_true)
+
+          samplewise = average == 'samples'
+          with pytest.warns(UndefinedMetricWarning):
+              p, r, f, s = precision_recall_fscore_support_from_confusion(multilabel_confusion_matrix(y_true, y_pred, samplewise=samplewise), average=average, beta=1.0)
+
+          assert_almost_equal(p, 0)
+          assert_almost_equal(r, 0)
+          assert_almost_equal(f, 0)
+          assert s is None
+      
+      @pytest.mark.parametrize('zero_division', [0, 1])
+      def test_precision_recall_f1_from_confusion_no_labels_average_none(zero_division):
+          y_true = np.zeros((20, 3))
+          y_pred = np.zeros_like(y_true)
+
+          p, r, f, s = assert_no_warnings(precision_recall_fscore_support_from_confusion, multilabel_confusion_matrix(y_true, y_pred), average=None, beta=1.0,
+                                          zero_division=zero_division)
+
+          zero_division = float(zero_division)
+          assert_array_almost_equal(
+              p, [zero_division, zero_division, zero_division], 2
+          )
+          assert_array_almost_equal(
+              r, [zero_division, zero_division, zero_division], 2
+          )
+          assert_array_almost_equal(
+              f, [zero_division, zero_division, zero_division], 2
+          )
+          assert_array_almost_equal(s, [0, 0, 0], 2)
+      
+      def test_precision_recall_f1_from_confusion_no_labels_average_none_warn():
+          y_true = np.zeros((20, 3))
+          y_pred = np.zeros_like(y_true)
+
+          with pytest.warns(UndefinedMetricWarning):
+              p, r, f, s = precision_recall_fscore_support_from_confusion(
+                  multilabel_confusion_matrix(y_true, y_pred), average=None, beta=1
+              )
+
+          assert_array_almost_equal(p, [0, 0, 0], 2)
+          assert_array_almost_equal(r, [0, 0, 0], 2)
+          assert_array_almost_equal(f, [0, 0, 0], 2)
+          assert_array_almost_equal(s, [0, 0, 0], 2)
+      ```
+
+    - balanced_accuracy_score_from_confusion
+
+      ```python
+      def test_balanced_accuracy_score_from_confusion_unseen():
+          assert_warns_message(UserWarning, 'y_pred contains classes not in y_true',
+                               balanced_accuracy_score_from_confusion, confusion_matrix([0, 0, 0], [0, 0, 1]))
+      
+      @pytest.mark.parametrize('y_true,y_pred',
+                              [
+                                  (['a', 'b', 'a', 'b'], ['a', 'a', 'a', 'b']),
+                                  (['a', 'b', 'c', 'b'], ['a', 'a', 'a', 'b']),
+                                  (['a', 'a', 'a', 'b'], ['a', 'b', 'c', 'b']),
+                              ])
+      def test_balanced_accuracy_score_from_confusion(y_true, y_pred):
+          macro_recall = recall_score(y_true, y_pred, average='macro',
+                                      labels=np.unique(y_true))
+          with ignore_warnings():
+              # Warnings are tested in test_balanced_accuracy_score_unseen
+              balanced = balanced_accuracy_score_from_confusion(confusion_matrix(y_true, y_pred))
+          assert balanced == pytest.approx(macro_recall)
+          adjusted = balanced_accuracy_score_from_confusion(confusion_matrix(y_true, y_pred), adjusted=True)
+          chance = balanced_accuracy_score_from_confusion(confusion_matrix(y_true, np.full_like(y_true, y_true[0])))
+          assert adjusted == (balanced - chance) / (1 - chance)
+      ```
+
 ## Work Log
