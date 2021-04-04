@@ -86,6 +86,20 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
 - Design and Interactions
 
+  Design:
+  According to [https://github.com/scikit-learn/scikit-learn/pull/19187](https://github.com/scikit-learn/scikit-learn/pull/19187):
+
+  There is a crude support of sparse matrix for HistGradientBoostingClassifier. To minimize the PR and avoid touching cython, the handling of the sparse matrix is rather crude.
+
+  To implement sparse matrix support for HistGradientBoostingClassifier, we need to handle sparse matrices during fit and during transform.
+
+  During Fit:
+
+  We need to convert the sparse matrix to a dense one, we can do this by getting the non-null values and then appending 0 to the list of values. Then the matrix can be treated the same way as a dense one.
+
+  During Transform:
+  We want the bin with value 0 to be mapped to the value 0. That way we can take advantage of the sparse structure to treat missing values as 0. The core of the binning logic is done in cython’s _map_to_bins() function. To avoid touching the cython code, we may need to implement our own function for that mapping.
+
 ## Pass the confusion matrix as a parameter
 
 [Link](https://github.com/scikit-learn/scikit-learn/issues/19679) to the issue page.
