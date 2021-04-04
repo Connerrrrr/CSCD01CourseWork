@@ -12,9 +12,11 @@
   - Investigation
     - Reproduce
     - Analysis
-  - Design
-  - Interactions
+  - Design and Interactions
   - Implementation
+    - Original Code
+    - Changed Code
+    - New Code Blocks
   - User Guide
   - Testing
     - Acceptance Test
