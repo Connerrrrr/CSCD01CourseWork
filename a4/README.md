@@ -125,7 +125,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
   Following constraints needs to apply:
 
     1. It is appropriate to make **y_true** and **y_pred** **ignored** if confusion matrix is passed.
-    2. Multilabel_confusion_matrix should have different variable name than regular confusion matrix.
+    2. Multilabel confusion matrix should have different variable name than regular confusion matrix.
 
   Therefore, it is better to seperate the original functions into two part: **the part before construction of confusion matrix** and **the part after the confusion matrix**.
 
