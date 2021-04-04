@@ -92,13 +92,11 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
 - Investigation
 
-  - Reproduce
-
   - Analysis
 
-- Design
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/19679-UML.svg "UML")
 
-- Interactions
+- Design and Interactions
 
 - Implementation
 
