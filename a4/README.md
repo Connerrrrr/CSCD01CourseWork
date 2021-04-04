@@ -92,7 +92,15 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
 - Investigation
 
+  Confusion matrix is one of the most important metrics for evaluating model performance. It is used with many other metrics for the evaluation.
+
+  Functions like sklearn.metrics.**balanced_accuracy_score**, **f1_score**, **jaccard_score**, **matthews_corrcoef**, etc. recalculate the confusion matrix every time, which is very time consuming.
+  
+  Therefore, to save time on repeatedly computing confusion matrix on large data set, it is a great idea to pass the confusion matrix as a parameter.
+
   - Analysis
+
+    Simplified UML hierarchy is provided below.
 
     ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/19679-UML.svg "UML")
 
