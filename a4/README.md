@@ -1298,6 +1298,14 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - Regression Test
 
+    Regression Test passed 100% with the original test cases defined in:
+
+    /sklearn/metrics/tests/test\_classification.py
+
+    Thus, the system still meets the requirement specifications.
+
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/19679-RegressionTest.png "Regression Test")
+
   - Unit Test
 
 ## Work Log
