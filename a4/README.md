@@ -1341,6 +1341,118 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - Acceptance Test
 
+    - matthews_corrcoef_from_confusion
+
+      1. open a python shell
+      2. from sklearn.metrics import matthews_corrcoef_from_confusion
+      3. let cm = [[0 1][1 2]]
+      4. call matthews_corrcoef_from_confusion(cm)
+
+    - jaccard_score_from_confusion
+
+      1. open python shell
+      2. import numpy as np
+      3. from sklearn.metrics import jaccard_score_from_confusion
+      4. let y_true = np.array([[0, 1, 1],[1, 1, 0]])
+      5. let y_pred = np.array([[1, 1, 1],[1, 0, 0]])
+      ######## in binary case #######
+      6. let MCM = multilabel_confusion_matrix(y_true[0], y_pred[0], labels=[1])
+      7. call jaccard_score_from_confusion(MCM)
+      ######## in multilabel case #######
+      8. let MCM = multilabel_confusion_matrix(y_true, y_pred, samplewise=True)
+      9. call jaccard_score_from_confusion(MCM, average='samples')
+      10. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+      11. call jaccard_score_from_confusion(MCM, average='macro')
+      12. call jaccard_score_from_confusion(MCM, average=None)
+      ######## in multiclass case #######
+      13. let y_pred = [0, 2, 1, 2]
+      14. let y_true = [0, 1, 2, 2]
+      15. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+      16. call jaccard_score(MCM, average=None)
+
+    - precision_recall_fscore_support_from_confusion
+
+      1. open python shell
+      2. import numpy as np
+      3. from sklearn.metrics import precision_recall_fscore_support_from_confusion
+      4. let y_true = np.array(['cat', 'dog', 'pig', 'cat', 'dog', 'pig'])
+      5. let y_pred = np.array(['cat', 'pig', 'dog', 'cat', 'cat', 'dog'])
+      6. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+      7. call precision_recall_fscore_support_from_confusion(MCM, average='macro')
+      8. call precision_recall_fscore_support_from_confusion(MCM, average='micro')
+      9. call precision_recall_fscore_support_from_confusion(MCM, average='weighted')
+      10. let MCM = multilabel_confusion_matrix(y_true, y_pred, labels=['pig', 'dog', 'cat'])
+      11. call precision_recall_fscore_support_from_confusion(y_true, y_pred, average=None)
+
+      - fbeta_score_from_confusion
+
+        1. open python shell
+        2. from sklearn.metrics import fbeta_score_from_confusion
+        3. let y_true = [0, 1, 2, 0, 1, 2]
+        4. let y_pred = [0, 2, 1, 0, 0, 1]
+        5. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        6. call fbeta_score_from_confusion(MCM, average='macro', beta=0.5)
+        7. call fbeta_score_from_confusion(MCM, average='micro', beta=0.5)
+        8. call fbeta_score_from_confusion(MCM, average='weighted', beta=0.5)
+        9. call fbeta_score_from_confusion(MCM, average=None, beta=0.5)
+
+      - f1_score_from_confusion
+
+        1. open python shell
+        2. from sklearn.metrics import f1_score_from_confusion
+        3. let y_true = [0, 1, 2, 0, 1, 2]
+        4. let y_pred = [0, 2, 1, 0, 0, 1]
+        5. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        6. call f1_score_from_confusion(MCM, average='macro')
+        7. call f1_score_from_confusion(MCM, average='micro')
+        8. call f1_score_from_confusion(MCM, average='weighted')
+        9. call f1_score_from_confusion(MCM, average=None)
+        10. let y_true = [0, 0, 0, 0, 0, 0]
+        11. let y_pred = [0, 0, 0, 0, 0, 0]
+        12. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        13. call f1_score_from_confusion(MCM, zero_division=1)
+
+      - precision_score_from_confusion
+
+        1. open python shell
+        2. from sklearn.metrics import precision_score_from_confusion
+        3. let y_true = [0, 1, 2, 0, 1, 2]
+        4. let y_pred = [0, 2, 1, 0, 0, 1]
+        5. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        6. call precision_score_from_confusion(MCM, average='macro')
+        7. call precision_score_from_confusion(MCM, average='micro')
+        8. call precision_score_from_confusion(MCM, average='weighted')
+        9. call precision_score_from_confusion(MCM, average=None)
+        10. let y_pred = [0, 0, 0, 0, 0, 0]
+        11. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        12. call precision_score_from_confusion(MCM, average=None)
+        13. call precision_score_from_confusion(MCM, average=None, zero_division=1)
+
+      - recall_score_from_confusion
+
+        1. open python shell
+        2. from sklearn.metrics import recall_score_from_confusion
+        3. let y_true = [0, 1, 2, 0, 1, 2]
+        4. let y_pred = [0, 2, 1, 0, 0, 1]
+        5. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        6. call recall_score_from_confusion(MCM, average='macro')
+        7. call recall_score_from_confusion(MCM, average='micro')
+        8. call recall_score_from_confusion(MCM, average='weighted')
+        9. call recall_score_from_confusion(MCM, average=None)
+        10. let y_true = [0, 0, 0, 0, 0, 0]
+        11. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+        12. call recall_score_from_confusion(MCM, average=None)
+        13. call recall_score_from_confusion(MCM, average=None, zero_division=1)
+
+  - balanced_accuracy_score_from_confusion
+
+    1. open python shell
+    2. from sklearn.metrics import balanced_accuracy_score_from_confusion
+    3. let y_true = [0, 1, 0, 0, 1, 0]
+    4. let y_pred = [0, 1, 0, 0, 0, 1]
+    5. let cm = confusion_matrix(y_true, y_pred)
+    6. call balanced_accuracy_score_from_confusion(y_true, y_pred)
+
   - Regression Test
 
     Regression Test passed 100% with the original test cases defined in:
