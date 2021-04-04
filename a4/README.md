@@ -1308,6 +1308,8 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   - Unit Test
 
+    ![alt text](https://github.com/UTSCCSCD01/course-project-apple_team/blob/master/a4/Images/19679-UnitTest.png "Unit Test")
+
     - matthews_corrcoef_from_confusion
 
       ```python
@@ -1726,7 +1728,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_warns_message(UserWarning, 'y_pred contains classes not in y_true',
                                balanced_accuracy_score_from_confusion, confusion_matrix([0, 0, 0], [0, 0, 1]))
       
-      
+
       @pytest.mark.parametrize('y_true,y_pred',
                               [
                                   (['a', 'b', 'a', 'b'], ['a', 'a', 'a', 'b']),
