@@ -1355,20 +1355,20 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
       3. from sklearn.metrics import jaccard_score_from_confusion
       4. let y_true = np.array([[0, 1, 1],[1, 1, 0]])
       5. let y_pred = np.array([[1, 1, 1],[1, 0, 0]])
-      ######## in binary case #######
-      6. let MCM = multilabel_confusion_matrix(y_true[0], y_pred[0], labels=[1])
-      7. call jaccard_score_from_confusion(MCM)
-      ######## in multilabel case #######
-      8. let MCM = multilabel_confusion_matrix(y_true, y_pred, samplewise=True)
-      9. call jaccard_score_from_confusion(MCM, average='samples')
-      10. let MCM = multilabel_confusion_matrix(y_true, y_pred)
-      11. call jaccard_score_from_confusion(MCM, average='macro')
-      12. call jaccard_score_from_confusion(MCM, average=None)
-      ######## in multiclass case #######
-      13. let y_pred = [0, 2, 1, 2]
-      14. let y_true = [0, 1, 2, 2]
-      15. let MCM = multilabel_confusion_matrix(y_true, y_pred)
-      16. call jaccard_score(MCM, average=None)
+      6. Binary case
+          1. let MCM = multilabel_confusion_matrix(y_true[0], y_pred[0], labels=[1])
+          1. call jaccard_score_from_confusion(MCM)
+      7. Multilabel case
+          1. let MCM = multilabel_confusion_matrix(y_true, y_pred, samplewise=True)
+          2. call jaccard_score_from_confusion(MCM, average='samples')
+          3. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+          4. call jaccard_score_from_confusion(MCM, average='macro')
+          5. call jaccard_score_from_confusion(MCM, average=None)
+      8. Multiclass case
+          1. let y_pred = [0, 2, 1, 2]
+          2. let y_true = [0, 1, 2, 2]
+          3. let MCM = multilabel_confusion_matrix(y_true, y_pred)
+          4. call jaccard_score(MCM, average=None)
 
     - precision_recall_fscore_support_from_confusion
 
