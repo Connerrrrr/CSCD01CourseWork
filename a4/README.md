@@ -1318,6 +1318,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert matthews_corrcoef_from_confusion(C1) == 0.0
           assert matthews_corrcoef_from_confusion(C2) == 0.0
       
+
       def test_matthews_corrcoef_from_confusion():
           rng = np.random.RandomState(0)
           y_true = ["a" if i == 0 else "b" for i in rng.randint(0, 2, size=20)]
@@ -1358,6 +1359,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           with pytest.raises(AssertionError):
               assert_almost_equal(matthews_corrcoef_from_confusion(confusion_matrix(y_1, y_2,
                                                     sample_weight=mask)), 0.)
+
 
       def test_matthews_corrcoef_from_confusion_multiclass():
           rng = np.random.RandomState(0)
@@ -1438,6 +1440,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_almost_equal(jaccard_score_from_confusion(MCM, average='samples'),
                               7. / 12)
       
+
       def test_average_binary_jaccard_score_from_confusion(recwarn):
           # tp=0, fp=0, fn=1, tn=0
           MCM = multilabel_confusion_matrix([1], [0])
@@ -1450,6 +1453,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
           assert not list(recwarn)
       
+
       def test_jaccard_score_from_division_zero_division_warning():
           # check that we raised a warning with default behavior if a zero division
           # happens
@@ -1464,6 +1468,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
               )
               assert score == pytest.approx(0.0)
       
+
       @pytest.mark.parametrize(
           "zero_division, expected_score", [(0, 0), (1, 0.5)]
       )
@@ -1493,6 +1498,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_array_almost_equal(f, [0.80, 0.76], 2)
           assert_array_equal(s, [25, 25])
 
+
       def test_precision_recall_f1_score_from_confusion_multiclass():
           # Test Precision Recall and F1 Score for multiclass classification task
           y_true, y_pred, _ = make_prediction(binary=False)
@@ -1512,8 +1518,9 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_array_almost_equal(f, [0.81, 0.57, 0.15], 2)
           assert_array_equal(s, [24, 20, 31])
 
+
       @pytest.mark.parametrize('average',
-                         ['samples', 'micro', 'macro', 'weighted', None])
+                               ['samples', 'micro', 'macro', 'weighted', None])
       def test_precision_refcall_f1_score_from_confusion_multilabel_unordered_labels(average):
           # test that labels need not be sorted in the multilabel case
           y_true = np.array([[1, 1, 0, 0]])
@@ -1526,6 +1533,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           if average is None:
               assert_array_equal(s, [0, 1, 1, 0])
       
+
       def test_precision_recall_f1_score_from_confusion_binary_averaged():
           y_true = np.array([0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1])
           y_pred = np.array([1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1])
@@ -1544,6 +1552,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert p == np.average(ps, weights=support)
           assert r == np.average(rs, weights=support)
           assert f == np.average(fs, weights=support)
+
 
       @ignore_warnings
       def test_precision_recall_f1_score_from_confusion_multilabel_1():
@@ -1593,6 +1602,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_almost_equal(f, 0.5)
           assert s is None
 
+
       @ignore_warnings
       @pytest.mark.parametrize('zero_division', ["warn", 0, 1])
       def test_precision_recall_f1_score_from_confusion_with_an_empty_prediction(zero_division):
@@ -1640,6 +1650,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_almost_equal(f, 1 / 3)
           assert s is None
 
+
       @pytest.mark.parametrize('beta', [1])
       @pytest.mark.parametrize('average', ["macro", "micro", "weighted", "samples"])
       @pytest.mark.parametrize('zero_division', [0, 1])
@@ -1656,6 +1667,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_almost_equal(f, zero_division)
           assert s is None
       
+
       @pytest.mark.parametrize('average', ["macro", "micro", "weighted", "samples"])
       def test_precision_recall_f1_from_confusion_no_labels_check_warnings(average):
           y_true = np.zeros((20, 3))
@@ -1670,6 +1682,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           assert_almost_equal(f, 0)
           assert s is None
       
+
       @pytest.mark.parametrize('zero_division', [0, 1])
       def test_precision_recall_f1_from_confusion_no_labels_average_none(zero_division):
           y_true = np.zeros((20, 3))
@@ -1690,6 +1703,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
           )
           assert_array_almost_equal(s, [0, 0, 0], 2)
       
+
       def test_precision_recall_f1_from_confusion_no_labels_average_none_warn():
           y_true = np.zeros((20, 3))
           y_pred = np.zeros_like(y_true)
@@ -1711,6 +1725,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
       def test_balanced_accuracy_score_from_confusion_unseen():
           assert_warns_message(UserWarning, 'y_pred contains classes not in y_true',
                                balanced_accuracy_score_from_confusion, confusion_matrix([0, 0, 0], [0, 0, 1]))
+      
       
       @pytest.mark.parametrize('y_true,y_pred',
                               [
