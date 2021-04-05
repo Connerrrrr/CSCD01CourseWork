@@ -34,7 +34,7 @@ In Assignment 4, we have one new feature #19679 and one hard enhencement #15336.
 
   Currently, when run **fit()** in _**HistGradientBoostingClassifier class**_, it requires to have a **dense matrix** as input, however some time the size of the dense data is huge (may run out of memory) and when we have a **sparse matrix** on hand, we may want to transfer it to a **dense one**, then extra time for that transformation is required.
 
-  - New Feature
+  - New Features
 
     Provide an option to directly take a sparse matrix as an input when run _**fit()**_ in _**HistGradientBoostingClassifier**_ class.
 
